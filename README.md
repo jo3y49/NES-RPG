@@ -1,2 +1,2 @@
-# 2D-Unity-Template
-My template for when I make a new 2D Unity game.
+# NES RPG
+Game being made for the NES game jam.
