@@ -8,7 +8,8 @@ using UnityEngine.UI;
 
 public class PlayerCombatMenu : MonoBehaviour {
     public Button buttonPrefab;
-    public GameObject attackButtonContainer, itemButtonContainer, enemyButtonContainer;
+    public GameObject initialButtonContainer, spellButtonContainer, enemyButtonContainer;
+    public Button attackButton, spellButton, explanationButton;
     private CombatManager combatManager;
     private CombatMenuManager combatMenuManager;
     private Dictionary<PlayerCombat, PlayerCombatOptions> playerOptions = new();
@@ -17,29 +18,51 @@ public class PlayerCombatMenu : MonoBehaviour {
     private PlayerCombat activePlayer;
     private CharacterCombat target;
 
-    public void Initialize(List<PlayerCombat> players, List<EnemyCombat> enemies, CombatManager combatManager, CombatMenuManager combatMenuManager)
+    public void Initialize(PlayerCombat player, List<EnemyCombat> enemies, CombatManager combatManager, CombatMenuManager combatMenuManager)
     {
         playerOptions.Clear();
         this.combatManager = combatManager;
         this.combatMenuManager = combatMenuManager;
         
-        SetPlayerButtons(players);
+        SetPlayerButtons(player);
         SetEnemyButtons(enemies);
 
+        initialButtonContainer.SetActive(true);
+        spellButtonContainer.SetActive(false);
+        enemyButtonContainer.SetActive(false);
         gameObject.SetActive(false);
     }
 
-    private void SelectAction(string action)
+    private void PickSpell()
     {
-        selectedAction = action;
-        playerOptions[activePlayer].DeactivateAllButtons();
-        enemyButtons.Values.ToList().ForEach(button => button.gameObject.SetActive(true));
+        combatMenuManager.ActiveText("Pick a spell");
+        initialButtonContainer.SetActive(false);
+        spellButtonContainer.SetActive(true);
+    }
+
+    private void PickExplanation()
+    {
+        
+    }
+
+    private void SelectAttack()
+    {
+        selectedAction = "Attack";
+        initialButtonContainer.SetActive(false);
+        enemyButtonContainer.SetActive(true);
+    }
+
+    private void SelectSpell(string spell)
+    {
+        selectedAction = spell;
+        spellButtonContainer.SetActive(false);
+        enemyButtonContainer.SetActive(true);
     }
 
     private void SelectTarget(CharacterCombat target)
     {
         this.target = target;
-        enemyButtons.Values.ToList().ForEach(button => button.gameObject.SetActive(false));
+        enemyButtonContainer.SetActive(false);
         SendAction();
     }
 
@@ -52,37 +75,27 @@ public class PlayerCombatMenu : MonoBehaviour {
     public void Activate(PlayerCombat player)
     {
         gameObject.SetActive(true);
+        initialButtonContainer.SetActive(true);
         activePlayer = player;
-
-        PlayerCombatOptions playerOption = playerOptions[activePlayer];
-        playerOption.ActivateButtons(playerOption.attacks.Values.ToList());
     }
 
-    private void SetPlayerButtons(List<PlayerCombat> players)
+    private void SetPlayerButtons(PlayerCombat player)
     {
-        foreach (PlayerCombat player in players)
+        attackButton.onClick.AddListener(SelectAttack);
+        spellButton.onClick.AddListener(PickSpell);
+        explanationButton.onClick.AddListener(PickExplanation);
+
+        PlayerCombatOptions options = new(buttonPrefab);
+
+        foreach (KeyValuePair<string, Button> spell in options.spells)
         {
-            PlayerCombatOptions options = new(player, buttonPrefab);
-                
-            foreach (KeyValuePair<string, Button> attack in options.attacks)
-            {
-                attack.Value.onClick.AddListener(() => SelectAction(attack.Key));
-                // attack.Value.OnPointerEnter((eventData) => HoverAction(attack.Key, eventData));
+            spell.Value.onClick.AddListener(() => SelectSpell(spell.Key));
+            // spell.Value.OnPointerEnter((eventData) => HoverAction(spell.Key, eventData));
 
-                attack.Value.transform.SetParent(attackButtonContainer.transform);
-                attack.Value.gameObject.SetActive(false);
-            }
-
-            foreach (KeyValuePair<string, Button> item in options.items)
-            {
-                item.Value.onClick.AddListener(() => SelectAction(item.Key));
-                item.Value.transform.SetParent(itemButtonContainer.transform);
-                
-                item.Value.gameObject.SetActive(false);
-            }
-
-            playerOptions.Add(player, options);
+            spell.Value.transform.SetParent(spellButtonContainer.transform);
         }
+
+        playerOptions.Add(player, options);
     }
 
     private void HoverAction(string action, PointerEventData eventData)
@@ -98,7 +111,6 @@ public class PlayerCombatMenu : MonoBehaviour {
             button.GetComponentInChildren<TextMeshProUGUI>().text = enemy.name;
             button.onClick.AddListener(() => SelectTarget(enemy));
             enemyButtons.Add(enemy, button);
-            button.gameObject.SetActive(false);
         }
     }
 }

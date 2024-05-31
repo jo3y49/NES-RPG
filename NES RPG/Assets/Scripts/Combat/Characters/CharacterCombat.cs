@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static ElementEnum;
 
 public class CharacterCombat : MonoBehaviour {
     public Stats stats { get; protected set;}
@@ -8,6 +9,7 @@ public class CharacterCombat : MonoBehaviour {
     protected int turnCount = 0;
     protected List<(Func<int>, int, int)> buffList = new();
     public CharacterAction CharacterAction {get; protected set;} = new();
+    public ElementType affectedElement = ElementType.None;
 
     protected virtual void Start() {
         baseStats = stats;
@@ -18,6 +20,10 @@ public class CharacterCombat : MonoBehaviour {
     protected virtual void FillActionList()
     {
         CharacterAction.AddToActionList("Attack");
+        CharacterAction.AddToActionList("Fire");
+        CharacterAction.AddToActionList("Ice");
+        CharacterAction.AddToActionList("Lightning");
+        CharacterAction.AddToActionList("Water");
     }
 
     public virtual void PrepareBattle()

@@ -2,8 +2,7 @@ public class ActionResult {
     public enum ResultType
     {
         Damage,
-        Buff,
-        Debuff,
+        ElementAttack,
         Heal,
         Miss
     }
@@ -20,5 +19,24 @@ public class ActionResult {
         this.user = user;
         this.resultType = resultType;
         this.value = value;
+    }
+
+    public void DoResult()
+    {
+        switch (resultType)
+        {
+            case ResultType.Damage:
+                target.TakeDamage(value);
+                break;
+            case ResultType.ElementAttack:
+                target.TakeDamage(value);
+                break;
+            case ResultType.Heal:
+                target.Heal(value);
+                break;
+            case ResultType.Miss:
+                
+                break;
+        }
     }
 }

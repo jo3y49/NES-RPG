@@ -7,7 +7,7 @@ public class MenuManager : MonoBehaviour {
     public static MenuManager Instance { get; private set; }
     private InputActions actions;
 
-    public GameObject pauseMenu, inventoryMenu;
+    public GameObject pauseMenu;
     private List<GameObject> menus;
     public CombatManager combatManager;
 
@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour {
         Instance = this;
         actions = new InputActions();
 
-        menus = new List<GameObject> { pauseMenu, inventoryMenu };
+        menus = new List<GameObject> { pauseMenu };
     }
 
     private void Start() {
@@ -98,13 +98,11 @@ public class MenuManager : MonoBehaviour {
     {
         actions.Menu.Enable();
         actions.Menu.Pause.performed += context => ToggleMenu(pauseMenu);
-        actions.Menu.Inventory.performed += context => ToggleMenu(inventoryMenu);
     }
 
     private void DeactivateMenuControls()
     {
         actions.Menu.Pause.performed -= context => ToggleMenu(pauseMenu);
-        actions.Menu.Inventory.performed -= context => ToggleMenu(inventoryMenu);
         actions.Menu.Disable();
     }
 }

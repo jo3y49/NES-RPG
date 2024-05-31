@@ -5,14 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public Stats stats = new(30,10,5,5);
+    public Stats stats = new(30,4,10,5,10,5,5);
     public int lives;
-    public int coins;
     public int level;
     public int xp;
     public int score;
-    public IDictionary<Item, int> inventory = new Dictionary<Item, int>();
-    public int inventoryCap;
     
 }
 [System.Serializable]
@@ -24,10 +21,7 @@ public class StatData
     public int damageDealt;
     public int damageTaken;
     public int livesLost;
-    public int coinsCollected;
-    public int coinsSpent;
     public int scoreCollected;
-    public int itemsCollected;
 }
 [System.Serializable]
 public class WorldData

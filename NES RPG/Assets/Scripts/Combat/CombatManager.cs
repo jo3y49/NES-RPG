@@ -24,7 +24,7 @@ public class CombatManager : MonoBehaviour {
         SortCharactersIntoQueue(playerObject, enemyObjects);
 
         combatMenuManager.Initialize(players, enemies);
-        playerCombatMenu.Initialize(players, enemies, this, combatMenuManager);
+        playerCombatMenu.Initialize(players[0], enemies, this, combatMenuManager);
 
         StartCoroutine(StartCombat());
     }
@@ -82,24 +82,7 @@ public class CombatManager : MonoBehaviour {
     {
         if (actionResult.message != null) combatMenuManager.ActiveText(actionResult.message);
 
-        switch (actionResult.resultType)
-        {
-            case ActionResult.ResultType.Damage:
-                actionResult.target.TakeDamage(actionResult.value);
-                break;
-            case ActionResult.ResultType.Heal:
-                actionResult.target.Heal(actionResult.value);
-                break;
-            // case ActionResult.ResultType.Buff:
-            //     actionResult.target.StatBuff(actionResult.statEnum, actionResult.value, actionResult.buffLength);
-            //     break;
-            // case ActionResult.ResultType.Debuff:
-            //     actionResult.target.StatDebuff(actionResult.statEnum, actionResult.value, actionResult.buffLength);
-            //     break;
-            case ActionResult.ResultType.Miss:
-                
-                break;
-        }
+        actionResult.DoResult();
 
         endUserTurn = !actionResult.stun;
     }

@@ -64,41 +64,6 @@ public class GameDataManager : GameManager {
         return gameData.playerData.lives;
     }
 
-    public void AddCoins(int coins = 1)
-    {
-        if (coins < 0)
-        {
-            RemoveCoins(coins);
-        }
-
-        gameData.playerData.coins += coins;
-        gameData.statData.coinsCollected += coins;
-    }
-
-    public int RemoveCoins(int coins = 1)
-    {
-        Mathf.Abs(coins);
-        if (gameData.playerData.coins - coins < 0)
-        {
-            gameData.playerData.coins = 0;
-        }
-
-        gameData.playerData.coins -= coins;
-
-        return coins;
-    }
-
-    public void SpendCoins(int coins = 1)
-    {
-        int newCoins = RemoveCoins(coins);
-        gameData.statData.coinsSpent += newCoins;
-    }
-
-    public int GetCoins()
-    {
-        return gameData.playerData.coins;
-    }
-
     public void SetLevel(int level)
     {
         gameData.playerData.level = level;
@@ -156,99 +121,6 @@ public class GameDataManager : GameManager {
         return gameData.playerData.score;
     }
 
-    public bool SetInventory(IDictionary<Item, int> inventory)
-    {
-        if (inventory.Values.Sum() > gameData.playerData.inventoryCap)
-        {
-            return false;
-        }
-
-        gameData.playerData.inventory = inventory;
-
-        return true;
-    }
-
-    public bool AddToInventory(Item item, int quantity = 1)
-    {
-        if (quantity < 0)
-        {
-            return RemoveFromInventory(item, quantity);
-        }
-
-        if (gameData.playerData.inventory.Values.Sum() >= gameData.playerData.inventoryCap)
-        {
-            return false;
-        } else if (gameData.playerData.inventory.Values.Sum() + quantity > gameData.playerData.inventoryCap)
-        {
-            quantity = gameData.playerData.inventoryCap - gameData.playerData.inventory.Values.Sum();
-        }
-
-        if (gameData.playerData.inventory.ContainsKey(item))
-        {
-            gameData.playerData.inventory[item] += quantity;
-        }
-        else
-        {
-            gameData.playerData.inventory.Add(item, quantity);
-        }
-
-        gameData.statData.itemsCollected += quantity;
-
-        return true;
-    }
-
-    public bool RemoveFromInventory(Item item, int quantity = 1)
-    {
-        Mathf.Abs(quantity);
-        if (gameData.playerData.inventory.ContainsKey(item))
-        {
-            if (gameData.playerData.inventory[item] - quantity <= 0)
-            {
-                gameData.playerData.inventory.Remove(item);
-            }
-            else
-            {
-                gameData.playerData.inventory[item] -= quantity;
-            }
-
-            return true;
-        }
-
-        return false;
-    }
-
-    public void ClearInventory()
-    {
-        gameData.playerData.inventory.Clear();
-    }
-
-    public IDictionary<Item, int> GetInventory()
-    {
-        return gameData.playerData.inventory;
-    }
-
-    public int GetQuantityFromInventory(Item item)
-    {
-        if (gameData.playerData.inventory.ContainsKey(item))
-        {
-            return gameData.playerData.inventory[item];
-        }
-
-        return 0;
-    }
-
-    public void AddInventoryCap(int inventoryCap = 1)
-    {
-        if (gameData.playerData.inventory.Values.Sum() > gameData.playerData.inventoryCap + inventoryCap) return;
-
-        gameData.playerData.inventoryCap += inventoryCap;
-    }
-
-    public int GetInventoryCap()
-    {
-        return gameData.playerData.inventoryCap;
-    }
-
     //StatData
 
     public void SetPlaytime(float playtime)
@@ -304,16 +176,6 @@ public class GameDataManager : GameManager {
     public int GetDamageTaken()
     {
         return gameData.statData.damageTaken;
-    }
-
-    public int GetCoinsCollected()
-    {
-        return gameData.statData.coinsCollected;
-    }
-
-    public int GetItemsCollected()
-    {
-        return gameData.statData.itemsCollected;
     }
 
     // worldData

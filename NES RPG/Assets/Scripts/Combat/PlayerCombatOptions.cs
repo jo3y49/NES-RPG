@@ -5,42 +5,15 @@ using UnityEngine.UI;
 
 public class PlayerCombatOptions
 {
-    public Dictionary<string, Button> attacks = new();
-    public Dictionary<string, Button> items = new();
+    public Dictionary<string, Button> spells = new();
 
-    public PlayerCombatOptions(PlayerCombat playerCombat, Button buttonPrefab)
+    public PlayerCombatOptions(Button buttonPrefab)
     {
-        foreach (string name in playerCombat.CharacterAction.battleActions.Keys)
-        {
-            attacks.Add(name, GenerateButton(buttonPrefab, name));
-        }
-
-        foreach (Item item in GameDataManager.Instance.GetInventory().Keys)
-        {
-            items.Add(item.itemName, GenerateButton(buttonPrefab, item.itemName));
-        }
+        spells.Add("Fire", GenerateButton(buttonPrefab, "Fire"));
+        spells.Add("Ice", GenerateButton(buttonPrefab, "Ice"));
+        spells.Add("Lightning", GenerateButton(buttonPrefab, "Lightning"));
+        spells.Add("Water", GenerateButton(buttonPrefab, "Water"));
     }
-
-    public void ActivateButtons(List<Button> buttons)
-    {
-        foreach (Button button in buttons)
-        {
-            button.gameObject.SetActive(true);
-        }
-    }
-
-    public void DeactivateAllButtons()
-    {
-        foreach (Button button in attacks.Values)
-        {
-            button.gameObject.SetActive(false);
-        }
-
-        foreach (Button button in items.Values)
-        {
-            button.gameObject.SetActive(false);
-        }
-    }   
 
     private Button GenerateButton(Button buttonPrefab, string text)
     {

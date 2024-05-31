@@ -2,11 +2,10 @@ public class ElementEnum
 {
     public enum ElementType
     {
+        None,
         Fire,
         Water,
-        Earth,
-        Air,
-        Light,
-        Dark
+        Lightning,
+        Ice
     }
 }
