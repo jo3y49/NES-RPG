@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class PlayerCombatMenu : MonoBehaviour {
     public Button buttonPrefab;
-    public GameObject initialButtonContainer, spellButtonContainer, enemyButtonContainer;
+    public GameObject initialButtonContainer, spellButtonContainer, enemyButtonContainer, combatExplanationContainer;
     public Button attackButton, spellButton, explanationButton;
     private CombatManager combatManager;
     private CombatMenuManager combatMenuManager;
@@ -30,6 +30,7 @@ public class PlayerCombatMenu : MonoBehaviour {
         initialButtonContainer.SetActive(true);
         spellButtonContainer.SetActive(false);
         enemyButtonContainer.SetActive(false);
+        combatExplanationContainer.SetActive(false);
         gameObject.SetActive(false);
     }
 
@@ -40,9 +41,16 @@ public class PlayerCombatMenu : MonoBehaviour {
         spellButtonContainer.SetActive(true);
     }
 
+    private void BackFromSpell()
+    {
+        combatMenuManager.ActiveText("");
+        initialButtonContainer.SetActive(true);
+        spellButtonContainer.SetActive(false);
+    }
+
     private void PickExplanation()
     {
-        
+        combatExplanationContainer.SetActive(true);
     }
 
     private void SelectAttack()
@@ -66,6 +74,13 @@ public class PlayerCombatMenu : MonoBehaviour {
         SendAction();
     }
 
+    private void BackFromTarget()
+    {
+        combatMenuManager.ActiveText("");
+        enemyButtonContainer.SetActive(false);
+        initialButtonContainer.SetActive(true);
+    }
+
     private void SendAction()
     {
         combatManager.ReceiveAction(selectedAction, activePlayer, target);
@@ -77,6 +92,7 @@ public class PlayerCombatMenu : MonoBehaviour {
         gameObject.SetActive(true);
         initialButtonContainer.SetActive(true);
         activePlayer = player;
+        spellButton.enabled = activePlayer.stats.GetMana() > 0;
     }
 
     private void SetPlayerButtons(PlayerCombat player)
@@ -95,6 +111,10 @@ public class PlayerCombatMenu : MonoBehaviour {
             spell.Value.transform.SetParent(spellButtonContainer.transform);
         }
 
+        Button back = Instantiate(buttonPrefab, spellButtonContainer.transform);
+        back.GetComponentInChildren<TextMeshProUGUI>().text = "Back";
+        back.onClick.AddListener(BackFromSpell);
+
         playerOptions.Add(player, options);
     }
 
@@ -112,5 +132,9 @@ public class PlayerCombatMenu : MonoBehaviour {
             button.onClick.AddListener(() => SelectTarget(enemy));
             enemyButtons.Add(enemy, button);
         }
+
+        Button back = Instantiate(buttonPrefab, enemyButtonContainer.transform);
+        back.GetComponentInChildren<TextMeshProUGUI>().text = "Back";
+        back.onClick.AddListener(BackFromTarget);
     }
 }

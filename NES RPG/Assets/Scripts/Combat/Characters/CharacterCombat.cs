@@ -10,6 +10,7 @@ public class CharacterCombat : MonoBehaviour {
     protected List<(Func<int>, int, int)> buffList = new();
     public CharacterAction CharacterAction {get; protected set;} = new();
     public ElementType affectedElement = ElementType.None;
+    public bool stunned = false;
 
     protected virtual void Start() {
         baseStats = stats;

@@ -9,6 +9,7 @@ public class ActionResult {
 
     public ResultType resultType;
     public int value = 0;
+    public int manaUsed = 0;
     public string message;
     public bool stun = false;
     public ElementEnum.ElementType element;
@@ -30,6 +31,7 @@ public class ActionResult {
                 break;
             case ResultType.ElementAttack:
                 target.TakeDamage(value);
+                target.affectedElement = element;
                 break;
             case ResultType.Heal:
                 target.Heal(value);
@@ -38,5 +40,7 @@ public class ActionResult {
                 
                 break;
         }
+        user.stats.UseMana(manaUsed);
+        target.stunned = stun;
     }
 }

@@ -251,15 +251,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 18633246931929154, guid: 9c3ffdaf176f07b4aa198e8f9a24468c, type: 3}
       propertyPath: stats.Health
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 18633246931929154, guid: 9c3ffdaf176f07b4aa198e8f9a24468c, type: 3}
       propertyPath: stats.Defense
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 18633246931929154, guid: 9c3ffdaf176f07b4aa198e8f9a24468c, type: 3}
       propertyPath: stats.Resistance
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1520586649134558708, guid: 9c3ffdaf176f07b4aa198e8f9a24468c, type: 3}
       propertyPath: m_LocalPosition.x

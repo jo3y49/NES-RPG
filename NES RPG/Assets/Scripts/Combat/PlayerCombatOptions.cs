@@ -13,9 +13,10 @@ public class PlayerCombatOptions
         spells.Add("Ice", GenerateButton(buttonPrefab, "Ice"));
         spells.Add("Lightning", GenerateButton(buttonPrefab, "Lightning"));
         spells.Add("Water", GenerateButton(buttonPrefab, "Water"));
+
     }
 
-    private Button GenerateButton(Button buttonPrefab, string text)
+    public Button GenerateButton(Button buttonPrefab, string text)
     {
         Button button = Object.Instantiate(buttonPrefab);
         button.GetComponentInChildren<TextMeshProUGUI>().text = text;

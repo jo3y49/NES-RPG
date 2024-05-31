@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static CharacterAction;
 using static ActionResult;
 using static ElementEnum;
 
 public static class CharacterActionList
 {
-    private static Dictionary<string, CharacterAction.BattleAction> battleActions = new();
+    private static Dictionary<string, BattleAction> battleActions = new();
 
     static CharacterActionList()
     {
@@ -14,64 +15,89 @@ public static class CharacterActionList
 
     public static ActionResult BaseAttack(CharacterCombat user, CharacterCombat target)
     {
-        string message;
-        int damage = 0;
-        bool stun = false;
-        ResultType resultType = Random.Range(0, 100) < 90 ? ResultType.Damage : ResultType.Miss;
+        int damage = user.stats.GetAttack() - target.stats.GetDefense();
+        bool isHit = Random.Range(0, 100) < 90;
+        return CreateActionResult(user, target, isHit ? ResultType.Damage : ResultType.Miss, damage, 10, "attacks");
+    }
 
-        if (resultType == ResultType.Damage)
-        {
-            damage = user.stats.GetAttack() - target.stats.GetDefense();
+    public static ActionResult FireSpell(CharacterCombat user, CharacterCombat target)
+    {
+        int damage = (int)(user.stats.GetMagic() * 1.5f) - target.stats.GetResistance();
+        bool isHit = Random.Range(0, 100) < 80;
+        return CreateElementalActionResult(user, target, isHit, damage, ElementType.Fire);
+    }
 
-            if (Random.Range(0, 100) < 10)
-            {
-                stun = true;
-                message = $"{user.name} stuns {target.name}!";
-            }
-            else
-                message = $"{user.name} attacks {target.name}!";
-            
-        } else
-        {
-            message = $"{user.name} missed!";
-        }
+    public static ActionResult LightningSpell(CharacterCombat user, CharacterCombat target)
+    {
+        int damage = (int)(user.stats.GetMagic() * 1.5f) - target.stats.GetResistance();
+        bool isHit = Random.Range(0, 100) < 80;
+        return CreateElementalActionResult(user, target, isHit, damage, ElementType.Lightning);
+    }
 
-        ActionResult result = new(user, resultType, damage)
+    public static ActionResult WaterSpell(CharacterCombat user, CharacterCombat target)
+    {
+        int damage = user.stats.GetMagic() - target.stats.GetResistance();
+        bool isHit = true;
+        return CreateElementalActionResult(user, target, isHit, damage, ElementType.Water);
+    }
+
+    public static ActionResult IceSpell(CharacterCombat user, CharacterCombat target)
+    {
+        int damage = user.stats.GetMagic() - target.stats.GetResistance();
+        bool isHit = true;
+        return CreateElementalActionResult(user, target, isHit, damage, ElementType.Ice);
+    }
+
+    private static ActionResult CreateActionResult(
+        CharacterCombat user, 
+        CharacterCombat target, 
+        ResultType resultType, 
+        int damage,
+        int stunChance,
+        string baseMessage)
+    {
+        bool stun = resultType == ResultType.Damage && Random.Range(0, 100) < stunChance;
+        string message = stun 
+            ? $"{user.name} stuns {target.name}!"
+            : (resultType == ResultType.Damage ? $"{user.name} {baseMessage} {target.name}!" : $"{user.name} missed!");
+
+        return new ActionResult(user, resultType, damage)
         {
             stun = stun,
             message = message,
             target = target
         };
-
-        return result;
     }
-
-    public static ActionResult FireSpell(CharacterCombat user, CharacterCombat target)
+    
+    private static ActionResult CreateElementalActionResult(
+        CharacterCombat user,
+        CharacterCombat target,
+        bool isHit,
+        int damage,
+        ElementType element)
     {
-        string message;
-        int damage = 0;
+        ResultType resultType = isHit ? ResultType.ElementAttack : ResultType.Miss;
         bool stun = false;
+        string message;
 
-        ResultType resultType = Random.Range(0, 100) < 80 ? ResultType.ElementAttack : ResultType.Miss;
-
-        if (resultType == ResultType.ElementAttack)
+        if (isHit)
         {
-            damage = (int)(user.stats.GetMagic() * 1.5f) - target.stats.GetResistance();
-
-            if (target.affectedElement == ElementType.Lightning || target.affectedElement == ElementType.Ice)
+            if (IsStrongAgainst(element, target.affectedElement))
             {
                 damage += (int)(damage * 1.5f);
                 stun = true;
                 message = $"{user.name} stuns {target.name}!";
+                element = ElementType.None;
             }
-            else if (target.affectedElement == ElementType.Water)
+            else if (IsWeakAgainst(element, target.affectedElement))
             {
                 damage += (int)(damage * 0.5f);
                 message = $"{user.name} weakly hit {target.name}!";
+                element = ElementType.None;
             }
             else
             {
-                message = $"{user.name} casts Fire on {target.name}!";
+                message = $"{user.name} casts {element} on {target.name}!";
             }
         }
         else
@@ -79,135 +105,52 @@ public static class CharacterActionList
             message = $"{user.name} missed!";
         }
 
-        ActionResult result = new(user, resultType, damage)
+        return new ActionResult(user, resultType, damage)
         {
             stun = stun,
             message = message,
             target = target,
-            element = ElementType.Fire
+            element = element,
+            manaUsed = 1
         };
-
-        return result;
     }
 
-    public static ActionResult LightningSpell(CharacterCombat user, CharacterCombat target)
+    // Additional helper methods to determine elemental strengths/weaknesses
+    private static bool IsStrongAgainst(ElementType attackElement, ElementType defenseElement)
     {
-        string message;
-        int damage = 0;
-        bool stun = false;
-
-        ResultType resultType = Random.Range(0, 100) < 80 ? ResultType.ElementAttack : ResultType.Miss;
-
-        if (resultType == ResultType.ElementAttack)
+        // Implement logic based on your game's elemental rules
+        switch (attackElement)
         {
-            damage = (int)(user.stats.GetMagic() * 1.5f) - target.stats.GetResistance();
-
-            if (target.affectedElement == ElementType.Water || target.affectedElement == ElementType.Fire)
-            {
-                damage += (int)(damage * 1.5f);
-                stun = true;
-                message = $"{user.name} stuns {target.name}!";
-            }
-            else if (target.affectedElement == ElementType.Ice)
-            {
-                damage += (int)(damage * 0.5f);
-                message = $"{user.name} weakly hit {target.name}!";
-            }
-            else
-            {
-                message = $"{user.name} casts Lightning on {target.name}!";
-            }
+            case ElementType.Fire:
+            case ElementType.Water:
+                return defenseElement == ElementType.Lightning || defenseElement == ElementType.Ice;
+            case ElementType.Lightning:
+            case ElementType.Ice:
+                return defenseElement == ElementType.Fire || defenseElement == ElementType.Water;
+            default:
+                return false;
         }
-        else
-        {
-            message = $"{user.name} missed!";
-        }
-
-        ActionResult result = new(user, resultType, damage)
-        {
-            stun = stun,
-            message = message,
-            target = target,
-            element = ElementType.Lightning
-        };
-
-        return result;
     }
 
-    public static ActionResult WaterSpell(CharacterCombat user, CharacterCombat target)
+    private static bool IsWeakAgainst(ElementType attackElement, ElementType defenseElement)
     {
-        string message;
-        int damage = 0;
-        bool stun = false;
-        ResultType resultType = ResultType.ElementAttack;
-    
-        damage = user.stats.GetMagic() - target.stats.GetResistance();
-
-        if (target.affectedElement == ElementType.Ice || target.affectedElement == ElementType.Lightning)
+        // Implement logic based on your game's elemental rules
+        switch (attackElement)
         {
-            damage += (int)(damage * 1.5f);
-            stun = true;
-            message = $"{user.name} stuns {target.name}!";
+            case ElementType.Fire:
+                return defenseElement == ElementType.Water;
+            case ElementType.Water:
+                return defenseElement == ElementType.Fire;
+            case ElementType.Lightning:
+                return defenseElement == ElementType.Ice;
+            case ElementType.Ice:
+                return defenseElement == ElementType.Lightning;
+            default:
+                return false;
         }
-        else if (target.affectedElement == ElementType.Fire)
-        {
-            damage += (int)(damage * 0.5f);
-            message = $"{user.name} weakly hit {target.name}!";
-        }
-        else
-        {
-            message = $"{user.name} casts Water on {target.name}!";
-        }
-
-        ActionResult result = new(user, resultType, damage)
-        {
-            stun = stun,
-            message = message,
-            target = target,
-            element = ElementType.Water
-        };
-
-        return result;
     }
 
-    public static ActionResult IceSpell(CharacterCombat user, CharacterCombat target)
-    {
-        string message;
-        int damage = 0;
-        bool stun = false;
-        ResultType resultType = ResultType.ElementAttack;
-    
-        damage = user.stats.GetMagic() - target.stats.GetResistance();
-
-        if (target.affectedElement == ElementType.Fire || target.affectedElement == ElementType.Water)
-        {
-            damage += (int)(damage * 1.5f);
-            stun = true;
-            message = $"{user.name} stuns {target.name}!";
-        }
-        else if (target.affectedElement == ElementType.Lightning)
-        {
-            damage += (int)(damage * 0.5f);
-            message = $"{user.name} weakly hit {target.name}!";
-        }
-        else
-        {
-            message = $"{user.name} casts Ice on {target.name}!";
-        }
-
-        ActionResult result = new(user, resultType, damage)
-        {
-            stun = stun,
-            message = message,
-            target = target,
-            element = ElementType.Ice
-        };
-
-        return result;
-    }
-    
-
-    public static CharacterAction.BattleAction GetAction(string actionName)
+    public static BattleAction GetAction(string actionName)
     {
         if (battleActions.ContainsKey(actionName))
         {
