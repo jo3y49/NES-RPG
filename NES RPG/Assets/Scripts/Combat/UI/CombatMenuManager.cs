@@ -96,7 +96,6 @@ public class CombatMenuManager : MonoBehaviour {
     public void ActiveText(string text) {
         battleText.text = text;
         AddToBattleLog(text);
-        Debug.Log(text);
     }
 
     private void AddToBattleLog(string text) {
