@@ -66,9 +66,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3722457020754715980, guid: bf0fddf2f139ae846955d4dca14fdb08, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 18633246931929154}
-    - targetCorrespondingSourceObject: {fileID: 3722457020754715980, guid: bf0fddf2f139ae846955d4dca14fdb08, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7273704810309770315}
   m_SourcePrefab: {fileID: 100100000, guid: bf0fddf2f139ae846955d4dca14fdb08, type: 3}
 --- !u!1 &1836852499637896417 stripped
@@ -76,23 +73,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3722457020754715980, guid: bf0fddf2f139ae846955d4dca14fdb08, type: 3}
   m_PrefabInstance: {fileID: 3086405477178466733}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &18633246931929154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1836852499637896417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 059b8eed2bb3f4a459800ff5fbb1da84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats:
-    Health: 0
-    Attack: 0
-    Defense: 0
-    Speed: 0
 --- !u!114 &7273704810309770315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,4 +85,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1390c5f286e86ad42b70ca0697f2579f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 18633246931929154}
+  affectedElement: 0
+  stunned: 0
+  enemyData: {fileID: 0}

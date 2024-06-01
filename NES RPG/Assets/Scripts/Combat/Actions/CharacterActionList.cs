@@ -160,6 +160,12 @@ public static class CharacterActionList
         return null;
     }
 
+    public static string GetRandomSpell()
+    {
+        List<string> spellList = new List<string> { "Fire", "Lightning", "Water", "Ice" };
+        return spellList[Random.Range(0, spellList.Count)];
+    }
+
     private static void FillActionList()
     {
         battleActions.Add("Attack", BaseAttack);

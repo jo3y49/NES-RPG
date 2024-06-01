@@ -107,7 +107,7 @@ PrefabInstance:
       addedObject: {fileID: 3322155939307287234}
     - targetCorrespondingSourceObject: {fileID: 3084070916229445466, guid: e53b819de6f2d0b4d873c39dcec09444, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2365309740963824943}
+      addedObject: {fileID: 4393080050205614808}
   m_SourcePrefab: {fileID: 100100000, guid: e53b819de6f2d0b4d873c39dcec09444, type: 3}
 --- !u!224 &2437556473328659766 stripped
 RectTransform:
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 3201374560000244592}
   combatManager: {fileID: 4466722279996402894}
---- !u!114 &2365309740963824943
+--- !u!114 &4393080050205614808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,11 +142,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2883343231696997553}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49db5022c2dd21c48b47fa83f2721a17, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e8d48f5725ea6e4c9d7e9e0c11e213d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   menuManager: {fileID: 3322155939307287234}
+  enemyPrefab: {fileID: 1836852499637896417, guid: 9c3ffdaf176f07b4aa198e8f9a24468c, type: 3}
+  combatCheckInterval: 1
 --- !u!1001 &4678819374510158035
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public Stats stats = new(30,4,10,5,10,5,5);
+    public Stats stats = new(30,4,20,10,20,10,5);
     public int lives;
     public int level;
     public int xp;

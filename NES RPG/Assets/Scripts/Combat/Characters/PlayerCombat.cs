@@ -5,6 +5,6 @@ public class PlayerCombat : CharacterCombat {
     {
         stats = baseStats = GameDataManager.Instance.GetStats();
 
-        FillActionList();
+        base.Start();
     }
 }

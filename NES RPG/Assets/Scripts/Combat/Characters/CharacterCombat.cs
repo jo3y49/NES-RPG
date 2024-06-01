@@ -13,8 +13,6 @@ public class CharacterCombat : MonoBehaviour {
     public bool stunned = false;
 
     protected virtual void Start() {
-        baseStats = stats;
-
         FillActionList();
     }
 

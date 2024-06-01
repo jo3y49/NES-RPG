@@ -74,6 +74,7 @@ public class MenuManager : MonoBehaviour {
         combatManager.gameObject.SetActive(false);
         ActivateMenuControls();
         PlayerMovement.Instance.ToggleActive(true);
+        HostileWorldManager.Instance.EndCombat();
     }
 
     private IEnumerator CountPlaytime()
