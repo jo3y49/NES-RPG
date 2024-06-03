@@ -24,6 +24,9 @@ public class CombatManager : MonoBehaviour {
         if (Instance == null)
         {
             Instance = this;
+        } else
+        {
+            Destroy(gameObject);
         }
     }
     
@@ -36,10 +39,10 @@ public class CombatManager : MonoBehaviour {
         combatMenuManager.Initialize(player, enemies);
         playerCombatMenu.Initialize(player, enemies, this, combatMenuManager);
 
-        StartCoroutine(StartCombat());
+        StartCoroutine(CombatLoop());
     }
 
-    private IEnumerator StartCombat()
+    private IEnumerator CombatLoop()
     {
         while (fight)
         {
@@ -52,6 +55,7 @@ public class CombatManager : MonoBehaviour {
         }
 
         MenuManager.Instance.EndCombat();
+        gameObject.SetActive(false);
     }
 
     private IEnumerator PlayerTurn(PlayerCombat player)
@@ -128,7 +132,7 @@ public class CombatManager : MonoBehaviour {
             {
                 var newTurnOrder = new Queue<CharacterCombat>(characterOrder.Where(x => x != character));
                 characterOrder = newTurnOrder;
-                character.EndBattle();
+                
 
                 if (character is PlayerCombat player)
                 {
@@ -138,6 +142,8 @@ public class CombatManager : MonoBehaviour {
                 {
                     enemies.Remove((EnemyCombat)character);
                 }
+
+                character.EndBattle();
             }
         }
     }

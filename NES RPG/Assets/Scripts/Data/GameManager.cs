@@ -22,6 +22,10 @@ public abstract class GameManager : MonoBehaviour {
 
     public virtual void QuitGame()
     {
+        // destroy every object that is set to persist through scenes
+        Destroy(PlayerMovement.Instance.gameObject);
+        Destroy(MenuManager.Instance.gameObject);
+
         // add a prompt to save first later
         Time.timeScale = 1;
         SceneManager.LoadScene(0);

@@ -67,7 +67,7 @@ public class MenuManager : MonoBehaviour {
         }
     }
 
-    public void StartCombat(GameObject playerObject)
+    public void StartCombat()
     {
         GameDataManager.Instance.SetLastPositionAndScene(PlayerMovement.Instance.transform.position, SceneManager.GetActiveScene().buildIndex);
         SceneManager.LoadScene("Combat");
@@ -80,6 +80,7 @@ public class MenuManager : MonoBehaviour {
         SceneManager.LoadScene(lastPositionAndScene.Item2);
         PlayerMovement.Instance.transform.position = lastPositionAndScene.Item1;
         PlayerMovement.Instance.ToggleActive(true);
+        HostileWorldManager.Instance.EndCombat();
     }
 
     private IEnumerator CountPlaytime()

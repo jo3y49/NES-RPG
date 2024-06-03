@@ -16,6 +16,7 @@ public class CombatMenuManager : MonoBehaviour {
 
         playerStats.Clear();
         enemyStats.Clear();
+        characterInfoList.Clear();
         
         playerStats.Add(player, player.stats);
 
@@ -48,7 +49,8 @@ public class CombatMenuManager : MonoBehaviour {
             characterInfoList.Add(player.Key, text);
         }
 
-        foreach (KeyValuePair<EnemyCombat, Stats> enemy in enemyStats) {
+        foreach (KeyValuePair<EnemyCombat, Stats> enemyPair in enemyStats) {
+            KeyValuePair<EnemyCombat, Stats> enemy = enemyPair;
             GameObject characterInfo = Instantiate(characterInfoPrefab, enemyNameContainer.transform);
             TextMeshProUGUI text = characterInfo.GetComponentInChildren<TextMeshProUGUI>();
             string healthString = $"{enemy.Key.enemyData.enemyName}: {enemy.Value.GetHealth()}";

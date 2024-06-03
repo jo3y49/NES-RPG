@@ -56,4 +56,11 @@ public class TitleManager : MonoBehaviour {
             deleteDataButton.interactable = true;
         }
     }
+
+    public void DebugBattle()
+    {
+        gameData = new GameData().NewGame();
+        GameDataManager.Instance.SetGameData(gameData);
+        SceneManager.LoadScene("TestBattle");
+    }
 }

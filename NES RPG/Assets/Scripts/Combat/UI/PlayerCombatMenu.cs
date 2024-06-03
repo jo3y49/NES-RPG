@@ -18,7 +18,6 @@ public class PlayerCombatMenu : MonoBehaviour {
 
     public void Initialize(PlayerCombat player, List<EnemyCombat> enemies, CombatManager combatManager, CombatMenuManager combatMenuManager)
     {
-        playerOptions.Clear();
         this.combatManager = combatManager;
         this.combatMenuManager = combatMenuManager;
         
@@ -95,9 +94,15 @@ public class PlayerCombatMenu : MonoBehaviour {
 
     private void SetPlayerButtons(PlayerCombat player)
     {
+        playerOptions.Clear();
         attackButton.onClick.AddListener(SelectAttack);
         spellButton.onClick.AddListener(PickSpell);
         explanationButton.onClick.AddListener(PickExplanation);
+
+        for (int i = 0; i < spellButtonContainer.transform.childCount; i++)
+        {
+            Destroy(spellButtonContainer.transform.GetChild(i).gameObject);
+        }
 
         PlayerCombatOptions options = new(buttonPrefab);
 
@@ -123,12 +128,20 @@ public class PlayerCombatMenu : MonoBehaviour {
 
     private void SetEnemyButtons(List<EnemyCombat> enemies)
     {
+        enemyButtons.Clear();
+
+        for (int i = 0; i < enemyButtonContainer.transform.childCount; i++)
+        {
+            Destroy(enemyButtonContainer.transform.GetChild(i).gameObject);
+        }
+
         foreach (EnemyCombat enemy in enemies)
         {
+            EnemyCombat currentEnemy = enemy;
             Button button = Instantiate(buttonPrefab, enemyButtonContainer.transform);
-            button.GetComponentInChildren<TextMeshProUGUI>().text = enemy.enemyData.enemyName;
-            button.onClick.AddListener(() => SelectTarget(enemy));
-            enemyButtons.Add(enemy, button);
+            button.GetComponentInChildren<TextMeshProUGUI>().text = currentEnemy.enemyData.enemyName;
+            button.onClick.AddListener(() => SelectTarget(currentEnemy));
+            enemyButtons.Add(currentEnemy, button);
         }
 
         Button back = Instantiate(buttonPrefab, enemyButtonContainer.transform);

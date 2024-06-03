@@ -16,7 +16,7 @@ MonoBehaviour:
   stats:
     Health: 30
     Mana: 0
-    Attack: 0
+    Attack: 15
     Defense: 15
     Magic: 0
     Resistance: 20

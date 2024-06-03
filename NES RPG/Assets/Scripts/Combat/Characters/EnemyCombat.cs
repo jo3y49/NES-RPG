@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 public class EnemyCombat : CharacterCombat {
     public EnemyData enemyData;
 
@@ -13,6 +11,11 @@ public class EnemyCombat : CharacterCombat {
 
     public (string, CharacterCombat) DecideAction(PlayerCombat target)
     {
-        return (enemyData.DecideAction(), target);
+        return (enemyData.DecideAction(target), target);
+    }
+
+    public override void EndBattle()
+    {
+        Destroy(gameObject);
     }
 }

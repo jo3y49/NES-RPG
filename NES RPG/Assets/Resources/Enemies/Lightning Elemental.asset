@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e6c642477d0334082507c442c239ee, type: 3}
   m_Name: Lightning Elemental
   m_EditorClassIdentifier: 
-  enemyName: Elemental 2
+  enemyName: Lightning Elemental
   stats:
     Health: 20
     Mana: 0

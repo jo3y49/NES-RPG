@@ -4,39 +4,31 @@ using UnityEngine;
 
 public class CombatSceneManager : MonoBehaviour {
     public Transform playerLocation, enemy1Location, enemy2Location, enemy3Location;
-    protected EnemyData[] enemyDatas;
-    public GameObject enemyPrefab;
-    private void Awake() {
-        enemyDatas = Resources.LoadAll<EnemyData>("Enemies");
+    private GameObject player;
+    private List<GameObject> enemies;
+    private void Awake() 
+    {
+        player = PlayerMovement.Instance.gameObject;
+        enemies = HostileWorldManager.Instance.activeEnemies;
+        CombatManager.Instance.Initialize(player, enemies);
 
-        GameObject playerObject = PlayerMovement.Instance.gameObject;
-        List<GameObject> enemyObjects = new List<GameObject> { GetRandomEnemy() };
+        SetCharacterLocations();
+    }
 
-        CombatManager.Instance.Initialize(playerObject, enemyObjects);
-
-        CombatManager.Instance.player.transform.position = playerLocation.position;
-
-        List<Transform> enemies = enemyObjects.Select(enemy => enemy.transform).ToList();
-
+    private void SetCharacterLocations()
+    {
+        player.transform.position = playerLocation.position;
         for (int i = 0; i < enemies.Count; i++)
         {
-            enemies[i].position = i switch
+            enemies[i].transform.position = i switch
             {
                 0 => enemy1Location.position,
                 1 => enemy2Location.position,
                 2 => enemy3Location.position,
-                _ => enemies[i].position,
+                _ => enemies[i].transform.position,
             };
+            
+            enemies[i].SetActive(true);
         }
-    }
-
-    private GameObject GetRandomEnemy()
-    {
-        int index = Random.Range(0, enemyDatas.Length);
-        EnemyData enemyData = enemyDatas[index];
-        GameObject enemyObject = Instantiate(enemyPrefab);
-        EnemyCombat enemy = enemyObject.GetComponent<EnemyCombat>();
-        enemy.SetEnemyData(enemyData);
-        return enemyObject;
     }
 }

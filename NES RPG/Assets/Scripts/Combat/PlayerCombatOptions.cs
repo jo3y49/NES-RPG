@@ -13,7 +13,6 @@ public class PlayerCombatOptions
         spells.Add("Ice", GenerateButton(buttonPrefab, "Ice"));
         spells.Add("Lightning", GenerateButton(buttonPrefab, "Lightning"));
         spells.Add("Water", GenerateButton(buttonPrefab, "Water"));
-
     }
 
     public Button GenerateButton(Button buttonPrefab, string text)
