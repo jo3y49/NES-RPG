@@ -72,7 +72,7 @@ public class Stats
 
     public void Heal(int health)
     {
-        Health += health;
+        if (health > 0) Health += health;
 
         if (Health > MaxHealth)
         {
@@ -82,7 +82,7 @@ public class Stats
 
     public void RestoreMana(int mana)
     {
-        Mana += mana;
+        if (mana > 0) Mana += mana;
 
         if (Mana > MaxMana)
         {
@@ -92,7 +92,7 @@ public class Stats
 
     public void TakeDamage(int damage)
     {
-        Health -= damage;
+        if (damage > 0) Health -= damage;
 
         if (Health <= 0)
         {
@@ -102,7 +102,7 @@ public class Stats
 
     public void UseMana(int mana = 1)
     {
-        Mana -= mana;
+        if (mana > 0) Mana -= mana;
 
         if (Mana < 0)
         {

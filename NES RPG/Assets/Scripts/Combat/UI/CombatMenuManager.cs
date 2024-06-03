@@ -12,10 +12,12 @@ public class CombatMenuManager : MonoBehaviour {
     public GameObject characterInfoPrefab;
     private Dictionary<CharacterCombat, TextMeshProUGUI> characterInfoList = new();
 
-    public void Initialize(List<PlayerCombat> playerObjects, List<EnemyCombat> enemyObjects) {
-        foreach (PlayerCombat player in playerObjects) {
-            playerStats.Add(player, player.stats);
-        }
+    public void Initialize(PlayerCombat player, List<EnemyCombat> enemyObjects) {
+
+        playerStats.Clear();
+        enemyStats.Clear();
+        
+        playerStats.Add(player, player.stats);
 
         foreach (EnemyCombat enemy in enemyObjects) {
             enemyStats.Add(enemy, enemy.stats);
@@ -37,7 +39,7 @@ public class CombatMenuManager : MonoBehaviour {
         foreach (KeyValuePair<PlayerCombat, Stats> player in playerStats) {
             GameObject characterInfo = Instantiate(characterInfoPrefab, playerNameContainer.transform);
             TextMeshProUGUI text = characterInfo.GetComponentInChildren<TextMeshProUGUI>();
-            string healthString = $"{player.Key.name}: {player.Value.GetHealth()}";
+            string healthString = $"{player.Key.characterName}: {player.Value.GetHealth()}";
             string manaString = $"{player.Value.GetMana()} spells remaining";
             string elementString = $"Active element: {player.Key.affectedElement}";
             string stunString = player.Key.stunned ? "Stunned" : "";
@@ -66,9 +68,9 @@ public class CombatMenuManager : MonoBehaviour {
         foreach (KeyValuePair<PlayerCombat, Stats> player in playerStats) {
             TextMeshProUGUI text = characterInfoList[player.Key];
             if (player.Value.GetHealth() <= 0) {
-                text.text = $"{player.Key}: is Defeated";
+                text.text = $"{player.Key.characterName}: is Defeated";
             } else {
-                string healthString = $"{player.Key.name}: {player.Value.GetHealth()}";
+                string healthString = $"{player.Key.characterName}: {player.Value.GetHealth()}";
                 string manaString = $"{player.Value.GetMana()} spells remaining";
                 string elementString = $"Active element: {player.Key.affectedElement}";
                 string stunString = player.Key.stunned ? "Stunned" : "";    
@@ -80,7 +82,7 @@ public class CombatMenuManager : MonoBehaviour {
         foreach (KeyValuePair<EnemyCombat, Stats> enemy in enemyStats) {
             TextMeshProUGUI text = characterInfoList[enemy.Key];
             if (enemy.Value.GetHealth() <= 0) {
-                text.text = $"{enemy.Key}: is Defeated";
+                text.text = $"{enemy.Key.enemyData.enemyName}: is Defeated";
             } else {
                 string healthString = $"{enemy.Key.enemyData.enemyName}: {enemy.Value.GetHealth()}";
                 string elementString = $"Active element: {enemy.Key.affectedElement}";

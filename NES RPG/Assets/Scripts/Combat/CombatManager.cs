@@ -4,7 +4,8 @@ using System.Linq;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour {
-    public List<PlayerCombat> players { get; private set;}
+    public static CombatManager Instance { get; private set; }
+    public PlayerCombat player { get; private set;}
     public List<EnemyCombat> enemies { get; private set;}
     private Queue<CharacterCombat> characterOrder = new();
 
@@ -17,14 +18,23 @@ public class CombatManager : MonoBehaviour {
     public bool endUserTurn = true;
 
     public float placeholderAnimationWaitTime = 1f;
-    
-    public void Initialize(List<GameObject> playerObject, List<GameObject> enemyObjects)
+
+    private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+    
+    public void Initialize(GameObject playerObject, List<GameObject> enemyObjects)
+    {
+        gameObject.SetActive(true);
         ResetCountingVariables();
         SortCharactersIntoQueue(playerObject, enemyObjects);
 
-        combatMenuManager.Initialize(players, enemies);
-        playerCombatMenu.Initialize(players[0], enemies, this, combatMenuManager);
+        combatMenuManager.Initialize(player, enemies);
+        playerCombatMenu.Initialize(player, enemies, this, combatMenuManager);
 
         StartCoroutine(StartCombat());
     }
@@ -46,7 +56,7 @@ public class CombatManager : MonoBehaviour {
 
     private IEnumerator PlayerTurn(PlayerCombat player)
     {
-        combatMenuManager.ActiveText("Player turn" + player.name);
+        combatMenuManager.ActiveText("Player turn" + player.characterName);
         menuCommandGiven = false;
 
         player.StartTurn();
@@ -60,7 +70,7 @@ public class CombatManager : MonoBehaviour {
 
     private IEnumerator EnemyTurn(EnemyCombat enemy)
     {
-        combatMenuManager.ActiveText("Enemy turn" + enemy.name);
+        combatMenuManager.ActiveText("Enemy turn" + enemy.enemyData.enemyName);
 
         enemy.StartTurn();
         EnemyAiAction(enemy);
@@ -89,7 +99,7 @@ public class CombatManager : MonoBehaviour {
 
     private void EnemyAiAction(EnemyCombat enemy)
     {
-        (string, CharacterCombat) action = enemy.DecideAction(players);
+        (string, CharacterCombat) action = enemy.DecideAction(player);
 
         ReceiveAction(action.Item1, enemy, action.Item2);
     }
@@ -122,7 +132,7 @@ public class CombatManager : MonoBehaviour {
 
                 if (character is PlayerCombat player)
                 {
-                    players.Remove(player);
+                    
                 }
                 else
                 {
@@ -145,14 +155,13 @@ public class CombatManager : MonoBehaviour {
 
     private void ResetCountingVariables()
     {
-        players = new();
         enemies = new();
         characterOrder = new();
         fight = true;
         turnCount = 0;
     }
 
-    private void SortCharactersIntoQueue(List<GameObject> playerObject, List<GameObject> enemyObjects)
+    private void SortCharactersIntoQueue(GameObject playerObject, List<GameObject> enemyObjects)
     {
         // consider changing to ffx system where attacks have a speed value
         SortedSet<CharacterCombat> sortedCharacters = InitiativeOrder();
@@ -164,12 +173,9 @@ public class CombatManager : MonoBehaviour {
             sortedCharacters.Add(enemyCombat);
         }
 
-        foreach (GameObject player in playerObject)
-        {
-            player.TryGetComponent(out PlayerCombat playerCombat);
-            players.Add(playerCombat);
-            sortedCharacters.Add(playerCombat);
-        }
+        playerObject.TryGetComponent(out PlayerCombat playerCombat);
+        player = playerCombat;
+        sortedCharacters.Add(playerCombat);
 
 
         foreach (CharacterCombat character in sortedCharacters)

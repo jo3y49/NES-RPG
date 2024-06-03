@@ -8,10 +8,11 @@ public class EnemyCombat : CharacterCombat {
         this.enemyData = enemyData;
         stats = baseStats = enemyData.stats;
         affectedElement = enemyData.element;
+        characterName = enemyData.enemyName;
     }
 
-    public (string, CharacterCombat) DecideAction(List<PlayerCombat> target)
+    public (string, CharacterCombat) DecideAction(PlayerCombat target)
     {
-        return (enemyData.DecideAction(), target[0]);
+        return (enemyData.DecideAction(), target);
     }
 }

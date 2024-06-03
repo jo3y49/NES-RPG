@@ -5,6 +5,7 @@ using static ElementEnum;
 
 public class CharacterCombat : MonoBehaviour {
     public Stats stats { get; protected set;}
+    public string characterName = "Player";
     protected Stats baseStats;
     protected int turnCount = 0;
     protected List<(Func<int>, int, int)> buffList = new();

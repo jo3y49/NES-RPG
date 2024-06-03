@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -128,7 +126,7 @@ public class PlayerCombatMenu : MonoBehaviour {
         foreach (EnemyCombat enemy in enemies)
         {
             Button button = Instantiate(buttonPrefab, enemyButtonContainer.transform);
-            button.GetComponentInChildren<TextMeshProUGUI>().text = enemy.name;
+            button.GetComponentInChildren<TextMeshProUGUI>().text = enemy.enemyData.enemyName;
             button.onClick.AddListener(() => SelectTarget(enemy));
             enemyButtons.Add(enemy, button);
         }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameDataManager : GameManager {
     public static GameDataManager Instance { get; protected set; }
+    private (Vector3, int) lastPositionAndScene;
 
     private void Awake()
     {
@@ -205,5 +206,15 @@ public class GameDataManager : GameManager {
     public void SetSettings(SettingsData settingsData)
     {
         gameData.settingsData = settingsData;
+    }
+
+    public void SetLastPositionAndScene(Vector3 playerPosition, int currentScene)
+    {
+        lastPositionAndScene = (playerPosition, currentScene);
+    }
+
+    public (Vector3, int) GetLastPositionAndScene()
+    {
+        return lastPositionAndScene;
     }
 }

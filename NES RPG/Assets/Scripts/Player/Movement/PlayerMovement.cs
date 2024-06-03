@@ -17,9 +17,17 @@ public abstract class PlayerMovement : MonoBehaviour {
     
 
     protected virtual void Awake() {
-        rb = GetComponent<Rigidbody2D>();
-        actions = new InputActions();
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            rb = GetComponent<Rigidbody2D>();
+            actions = new InputActions();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     protected virtual void OnEnable() {
@@ -32,6 +40,7 @@ public abstract class PlayerMovement : MonoBehaviour {
     }
 
     protected virtual void OnDisable() {
+        if (actions == null) return;
         actions.Player.Move.performed -= MoveCharacter;
         actions.Player.Move.canceled -= context => StopCharacter();
         actions.Player.Sprint.performed += context => Sprint(true);

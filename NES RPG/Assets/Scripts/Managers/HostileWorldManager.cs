@@ -5,8 +5,7 @@ using UnityEngine.InputSystem;
 
 public class HostileWorldManager : WorldManager {
     public static new HostileWorldManager Instance { get; protected set; }
-    protected EnemyData[] enemyDatas;
-    public GameObject enemyPrefab;
+    
     protected InputActions actions;
     public float combatCheckInterval = 1;
     public bool fighting = false;
@@ -15,7 +14,7 @@ public class HostileWorldManager : WorldManager {
     protected override void Awake()
     {
         actions = new InputActions();
-        enemyDatas = Resources.LoadAll<EnemyData>("Enemies");
+        
         Instance = this;
     }
 
@@ -59,21 +58,7 @@ public class HostileWorldManager : WorldManager {
 
     public virtual void StartCombat()
     {
-        
-        List<GameObject> enemies = new();
-        enemies.Add(GetRandomEnemy());
-
-        menuManager.StartCombat(new List<GameObject> {player}, enemies);
-    }
-
-    private GameObject GetRandomEnemy()
-    {
-        int index = Random.Range(0, enemyDatas.Length);
-        EnemyData enemyData = enemyDatas[index];
-        GameObject enemyObject = Instantiate(enemyPrefab);
-        EnemyCombat enemy = enemyObject.GetComponent<EnemyCombat>();
-        enemy.SetEnemyData(enemyData);
-        return enemyObject;
+        menuManager.StartCombat(player);
     }
 
     public void EndCombat()

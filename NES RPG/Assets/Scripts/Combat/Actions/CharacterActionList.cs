@@ -58,8 +58,8 @@ public static class CharacterActionList
     {
         bool stun = resultType == ResultType.Damage && Random.Range(0, 100) < stunChance;
         string message = stun 
-            ? $"{user.name} stuns {target.name}!"
-            : (resultType == ResultType.Damage ? $"{user.name} {baseMessage} {target.name}!" : $"{user.name} missed!");
+            ? $"{user.characterName} stuns {target.characterName}!"
+            : (resultType == ResultType.Damage ? $"{user.characterName} {baseMessage} {target.characterName}!" : $"{user.characterName} missed!");
 
         return new ActionResult(user, resultType, damage)
         {
@@ -86,23 +86,23 @@ public static class CharacterActionList
             {
                 damage += (int)(damage * 1.5f);
                 stun = true;
-                message = $"{user.name} stuns {target.name}!";
+                message = $"{user.characterName} stuns {target.characterName}!";
                 element = ElementType.None;
             }
             else if (IsWeakAgainst(element, target.affectedElement))
             {
                 damage += (int)(damage * 0.5f);
-                message = $"{user.name} weakly hit {target.name}!";
+                message = $"{user.characterName} weakly hit {target.characterName}!";
                 element = ElementType.None;
             }
             else
             {
-                message = $"{user.name} casts {element} on {target.name}!";
+                message = $"{user.characterName} casts {element} on {target.characterName}!";
             }
         }
         else
         {
-            message = $"{user.name} missed!";
+            message = $"{user.characterName} missed!";
         }
 
         return new ActionResult(user, resultType, damage)

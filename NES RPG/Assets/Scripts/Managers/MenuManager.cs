@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour {
     public static MenuManager Instance { get; private set; }
@@ -9,20 +10,27 @@ public class MenuManager : MonoBehaviour {
 
     public GameObject pauseMenu;
     private List<GameObject> menus;
-    public CombatManager combatManager;
 
     private void Awake() {
-        Instance = this;
-        actions = new InputActions();
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            actions = new InputActions();
 
-        menus = new List<GameObject> { pauseMenu };
+            menus = new List<GameObject> { pauseMenu };
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start() {
         Time.timeScale = 1;
 
         CloseMenus();
-        combatManager.gameObject.SetActive(false);
+        CombatManager.Instance.gameObject.SetActive(false);
 
         StartCoroutine(CountPlaytime());
     }
@@ -59,22 +67,19 @@ public class MenuManager : MonoBehaviour {
         }
     }
 
-    public void StartCombat(List<GameObject> playerObjects, List<GameObject> enemyObjects)
+    public void StartCombat(GameObject playerObject)
     {
-        combatManager.gameObject.SetActive(true);
-        CloseMenus();
-        DeactivateMenuControls();
+        GameDataManager.Instance.SetLastPositionAndScene(PlayerMovement.Instance.transform.position, SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("Combat");
         PlayerMovement.Instance.ToggleActive(false);
-
-        combatManager.Initialize(playerObjects, enemyObjects);
     }
 
     public void EndCombat()
     {
-        combatManager.gameObject.SetActive(false);
-        ActivateMenuControls();
+        (Vector3, int) lastPositionAndScene = GameDataManager.Instance.GetLastPositionAndScene();
+        SceneManager.LoadScene(lastPositionAndScene.Item2);
+        PlayerMovement.Instance.transform.position = lastPositionAndScene.Item1;
         PlayerMovement.Instance.ToggleActive(true);
-        HostileWorldManager.Instance.EndCombat();
     }
 
     private IEnumerator CountPlaytime()
@@ -103,6 +108,7 @@ public class MenuManager : MonoBehaviour {
 
     private void DeactivateMenuControls()
     {
+        if (actions == null) return;
         actions.Menu.Pause.performed -= context => ToggleMenu(pauseMenu);
         actions.Menu.Disable();
     }
