@@ -61,6 +61,6 @@ public class TitleManager : MonoBehaviour {
     {
         gameData = new GameData().NewGame();
         GameDataManager.Instance.SetGameData(gameData);
-        SceneManager.LoadScene("TestBattle");
+        SceneManager.LoadScene("DebugBattle");
     }
 }

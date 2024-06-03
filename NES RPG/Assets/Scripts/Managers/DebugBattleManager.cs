@@ -62,4 +62,8 @@ public class DebugBattleManager : MonoBehaviour {
             HostileWorldManager.Instance.hostile = false;
         }
     }
+
+    private void OnDestroy() {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 }
