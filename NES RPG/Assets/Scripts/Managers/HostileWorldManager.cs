@@ -11,7 +11,7 @@ public class HostileWorldManager : WorldManager {
     public GameObject enemyPrefab;
     public List<GameObject> activeEnemies = new();
     public float combatCheckInterval = 1;
-    public bool hostile = false;
+    public bool hostile = true;
     private Coroutine combatCheck;
 
     protected override void Awake()
