@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Lightning Elemental
   stats:
-    Health: 20
+    Health: 25
     Mana: 0
     Attack: 0
     Defense: 10
     Magic: 15
-    Resistance: 15
+    Resistance: 20
     Speed: 3
   element: 3

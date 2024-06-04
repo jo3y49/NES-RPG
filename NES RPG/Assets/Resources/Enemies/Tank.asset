@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Tank
   stats:
-    Health: 30
+    Health: 40
     Mana: 0
     Attack: 15
-    Defense: 20
+    Defense: 15
     Magic: 0
     Resistance: 10
     Speed: 2

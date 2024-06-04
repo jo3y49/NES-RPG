@@ -84,15 +84,15 @@ public static class CharacterActionList
         {
             if (IsStrongAgainst(element, target.affectedElement))
             {
-                damage += (int)(damage * 1.5f);
+                damage += (int)(damage * 1.2f);
                 stun = true;
-                message = $"{user.characterName} stuns {target.characterName}!";
+                message = $"{user.characterName} stuns {target.characterName} with {element}!";
                 element = ElementType.None;
             }
             else if (IsWeakAgainst(element, target.affectedElement))
             {
                 damage += (int)(damage * 0.5f);
-                message = $"{user.characterName} weakly hit {target.characterName}!";
+                message = $"{user.characterName} weakly hit {target.characterName} with {element}!";
                 element = ElementType.None;
             }
             else

@@ -29,6 +29,10 @@ public class DebugBattleManager : MonoBehaviour {
         randomButton.onClick.AddListener(RandomEnemy);
         enemyButtons.Add(randomButton);
 
+        Button backButton = Instantiate(buttonPrefab, enemyButtonContainer.transform).GetComponent<Button>();
+        backButton.GetComponentInChildren<TextMeshProUGUI>().text = "Back";
+        backButton.onClick.AddListener(() => GameDataManager.Instance.QuitGame());
+
         enemyButtonContainer.SetActive(true);
 
         gameObject.SetActive(true);
@@ -60,6 +64,8 @@ public class DebugBattleManager : MonoBehaviour {
         {
             gameObject.SetActive(true);
             HostileWorldManager.Instance.hostile = false;
+            PlayerMovement.Instance.ToggleActive(false);
+            MenuManager.Instance.DeactivateMenuControls();
         }
     }
 

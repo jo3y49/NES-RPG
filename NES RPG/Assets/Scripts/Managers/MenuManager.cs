@@ -109,7 +109,7 @@ public class MenuManager : MonoBehaviour {
         actions.Menu.Pause.performed += context => ToggleMenu(pauseMenu);
     }
 
-    private void DeactivateMenuControls()
+    public void DeactivateMenuControls()
     {
         if (actions == null) return;
         actions.Menu.Pause.performed -= context => ToggleMenu(pauseMenu);
