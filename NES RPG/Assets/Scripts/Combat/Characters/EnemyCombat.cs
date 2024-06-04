@@ -5,10 +5,10 @@ public class EnemyCombat : CharacterCombat {
 
     public void SetEnemyData(EnemyData enemyData)
     {
-        this.enemyData = enemyData;
-        stats = baseStats = enemyData.stats;
-        affectedElement = enemyData.element;
-        characterName = enemyData.enemyName;
+        this.enemyData = Instantiate(enemyData);
+        stats = baseStats = this.enemyData.stats;
+        affectedElement = this.enemyData.element;
+        characterName = this.enemyData.enemyName;
     }
 
     public (string, CharacterCombat) DecideAction(PlayerCombat target)

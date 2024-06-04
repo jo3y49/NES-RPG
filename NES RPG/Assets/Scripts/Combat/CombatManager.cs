@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour {
@@ -54,13 +55,16 @@ public class CombatManager : MonoBehaviour {
             fight = NextTurnLogic(currentCharacter);
         }
 
-        MenuManager.Instance.EndCombat();
-        gameObject.SetActive(false);
+        if (player.stats.GetHealth() > 0)
+        {
+            MenuManager.Instance.EndCombat();
+            gameObject.SetActive(false);
+        }
     }
 
     private IEnumerator PlayerTurn(PlayerCombat player)
     {
-        combatMenuManager.ActiveText("Player turn" + player.characterName);
+        combatMenuManager.ActiveText("Player turn");
         menuCommandGiven = false;
 
         player.StartTurn();
@@ -132,18 +136,21 @@ public class CombatManager : MonoBehaviour {
             {
                 var newTurnOrder = new Queue<CharacterCombat>(characterOrder.Where(x => x != character));
                 characterOrder = newTurnOrder;
-                
+                character.EndBattle();
 
                 if (character is PlayerCombat player)
                 {
-                    
+                    foreach (EnemyCombat enemy in enemies)
+                    {
+                        Destroy(enemy.gameObject);
+                    }
+                    StopAllCoroutines();
+                    GameDataManager.Instance.QuitGame();   
                 }
                 else
                 {
                     enemies.Remove((EnemyCombat)character);
                 }
-
-                character.EndBattle();
             }
         }
     }
