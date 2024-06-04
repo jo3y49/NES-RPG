@@ -70,15 +70,15 @@ public class HostileWorldManager : WorldManager {
             yield return new WaitForSeconds(combatCheckInterval);
             if (Random.Range(0, 100) < 10)
             {
-                hostile = false;
                 StartCombat();
-                StopCheck();
             }
         }
     }
 
     public virtual void StartCombat()
     {
+        hostile = false;
+        StopCheck();
         activeEnemies.Clear();
         
         GameObject enemyObject = GetRandomEnemy();
@@ -89,6 +89,8 @@ public class HostileWorldManager : WorldManager {
 
     public virtual void StartCombat(EnemyData enemy)
     {
+        hostile = false;
+        StopCheck();
         activeEnemies.Clear();
         
         GameObject enemyObject = GetEnemy(enemy);

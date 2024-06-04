@@ -28,6 +28,7 @@ public class WorldData
 {
     public int currentScene = 1;
     public Vector2 playerPosition = new();
+    public int defeatedBosses = 0;
 }
 
 [System.Serializable]

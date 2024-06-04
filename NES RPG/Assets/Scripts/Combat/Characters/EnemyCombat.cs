@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class EnemyCombat : CharacterCombat {
     public EnemyData enemyData;
 
@@ -16,6 +18,17 @@ public class EnemyCombat : CharacterCombat {
 
     public override void EndBattle()
     {
+        if (enemyData is MidBoss)
+        {
+            GameDataManager.Instance.AddDefeatedBosses();
+        }
+
         Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.CompareTag("Player")) {
+            HostileWorldManager.Instance.StartCombat(enemyData);
+        }
     }
 }

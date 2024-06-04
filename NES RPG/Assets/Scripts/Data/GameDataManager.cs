@@ -201,6 +201,16 @@ public class GameDataManager : GameManager {
         return gameData.worldData.playerPosition;
     }
 
+    public void AddDefeatedBosses(int defeatedBosses = 1)
+    {
+        gameData.worldData.defeatedBosses += defeatedBosses;
+    }
+
+    public int GetDefeatedBosses()
+    {
+        return gameData.worldData.defeatedBosses;
+    }
+
     // settingsData
 
     public void SetSettings(SettingsData settingsData)
