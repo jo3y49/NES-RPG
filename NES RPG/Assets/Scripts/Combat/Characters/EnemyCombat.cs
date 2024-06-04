@@ -24,7 +24,7 @@ public class EnemyCombat : CharacterCombat {
 
     public override void EndBattle()
     {
-        if (enemyData is MidBoss)
+        if (enemyData is MidBoss or FinalBoss)
         {
             GameDataManager.Instance.AddDefeatedBosses();
             PlayerMovement.Instance.GetComponent<PlayerCombat>().UpgradeSword();

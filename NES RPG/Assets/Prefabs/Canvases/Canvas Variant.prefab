@@ -148,7 +148,7 @@ MonoBehaviour:
   menuManager: {fileID: 3322155939307287234}
   enemyPrefab: {fileID: 1836852499637896417, guid: 9c3ffdaf176f07b4aa198e8f9a24468c, type: 3}
   activeEnemies: []
-  combatCheckInterval: 1
+  combatCheckInterval: 0.5
   hostile: 0
 --- !u!1001 &4678819374510158035
 PrefabInstance:

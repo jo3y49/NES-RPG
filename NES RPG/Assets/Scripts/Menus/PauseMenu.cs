@@ -20,6 +20,7 @@ public class PauseMenu : MonoBehaviour {
         GameDataManager gd = GameDataManager.Instance;
         gd.SetCurrentScene(SceneManager.GetActiveScene().buildIndex);
         gd.SetPlayerPosition(PlayerMovement.Instance.transform.position);
+        PlayerMovement.Instance.GetComponent<PlayerCombat>().EndBattle();
 
         gd.SaveGameData();
     }

@@ -7,7 +7,7 @@ public class Entrance : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
-            HostileWorldManager.Instance.hostile = hostile;
+            HostileWorldManager.Instance.ToggleHostility(hostile);
             
             SceneManager.LoadScene(newSceneName);
             PlayerMovement.Instance.transform.position = Vector2.zero;

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class HostileWorldManager : WorldManager {
     public static new HostileWorldManager Instance { get; protected set; }
@@ -119,5 +118,16 @@ public class HostileWorldManager : WorldManager {
     public void EndCombat()
     {
         hostile = true;
+    }
+
+    public void ToggleHostility(bool b)
+    {
+        hostile = b;
+        StopCheck();
+        
+        if (actions.Player.Move.IsPressed() == true)
+        {
+            CheckForEnemies();
+        }
     }
 }

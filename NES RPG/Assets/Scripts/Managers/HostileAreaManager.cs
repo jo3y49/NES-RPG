@@ -15,7 +15,7 @@ public class HostileAreaManager : MonoBehaviour {
             }
         }
 
-        HostileWorldManager.Instance.hostile = true;
+        HostileWorldManager.Instance.ToggleHostility(true);
         MenuManager.Instance.SaveZone(false);
     }
 }

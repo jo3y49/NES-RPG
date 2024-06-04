@@ -4,7 +4,7 @@ using UnityEngine;
 public class OverWorldManager : MonoBehaviour {
     public List<GameObject> barriers = new();
     private void Start() {
-        HostileWorldManager.Instance.hostile = false;
+        HostileWorldManager.Instance.ToggleHostility(false);
         PlayerMovement.Instance.GetComponent<PlayerCombat>().EndBattle();
         MenuManager.Instance.SaveZone(true);
 
