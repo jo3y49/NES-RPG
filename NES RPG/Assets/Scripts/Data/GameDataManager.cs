@@ -32,39 +32,6 @@ public class GameDataManager : GameManager {
         return gameData.playerData.stats;
     }
 
-    public bool AddLives(int lives = 1)
-    {
-        if (gameData.playerData.lives < 0)
-        {
-            return RemoveLives(lives);
-        }
-
-        gameData.playerData.lives += lives;
-
-        return true;
-    }
-
-    public bool RemoveLives(int lives = 1)
-    {
-        Mathf.Abs(lives);
-        if (gameData.playerData.lives - lives <= 0)
-        {
-            gameData.statData.livesLost += gameData.playerData.lives;
-            gameData.playerData.lives = 0;
-            return false;
-        }
-
-        gameData.playerData.lives -= lives;
-        gameData.statData.livesLost += lives;
-
-        return true;
-    }
-
-    public int GetLives()
-    {
-        return gameData.playerData.lives;
-    }
-
     public void SetLevel(int level)
     {
         gameData.playerData.level = level;
@@ -80,6 +47,21 @@ public class GameDataManager : GameManager {
         return gameData.playerData.level;
     }
 
+    public void SetSwordLevel(int swordLevel)
+    {
+        gameData.playerData.swordLevel = swordLevel;
+    }
+
+    public void AddSwordLevel(int swordLevel = 1)
+    {
+        gameData.playerData.swordLevel += swordLevel;
+    }
+
+    public int GetSwordLevel()
+    {
+        return gameData.playerData.swordLevel;
+    }
+
     public void AddXP(int xp = 1)
     {
         gameData.playerData.xp += xp;
@@ -88,38 +70,6 @@ public class GameDataManager : GameManager {
     public int GetXP()
     {
         return gameData.playerData.xp;
-    }
-
-    public void SetScore(int score)
-    {
-        gameData.playerData.score = score;
-    }
-
-    public void AddScore(int score = 1)
-    {
-        if (score < 0)
-        {
-            RemoveScore(score);
-        }
-
-        gameData.playerData.score += score;
-        gameData.statData.scoreCollected += score;
-    }
-
-    public void RemoveScore(int score = 1)
-    {
-        Mathf.Abs(score);
-        if (gameData.playerData.score - score <= 0)
-        {
-            gameData.playerData.score = 0;
-        }
-
-        gameData.playerData.score -= score;
-    }
-
-    public int GetScore()
-    {
-        return gameData.playerData.score;
     }
 
     //StatData
@@ -137,16 +87,6 @@ public class GameDataManager : GameManager {
     public float GetPlaytime()
     {
         return gameData.statData.playtime;
-    }
-
-    public void AddDeaths(int deaths = 1)
-    {
-        gameData.statData.deaths += deaths;
-    }
-
-    public int GetDeaths()
-    {
-        return gameData.statData.deaths;
     }
 
     public void AddKills(int kills = 1)

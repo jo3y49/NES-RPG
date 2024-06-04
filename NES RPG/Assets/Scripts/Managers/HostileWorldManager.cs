@@ -10,7 +10,7 @@ public class HostileWorldManager : WorldManager {
     protected EnemyData[] enemyDatas;
     public GameObject enemyPrefab;
     public List<GameObject> activeEnemies = new();
-    public float combatCheckInterval = 1;
+    public float combatCheckInterval = .5f;
     public bool hostile = true;
     private Coroutine combatCheck;
 

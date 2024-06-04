@@ -7,8 +7,9 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour {
     public static MenuManager Instance { get; private set; }
     private InputActions actions;
+    private PauseMenu pauseMenu;
 
-    public GameObject pauseMenu;
+    public GameObject pauseMenuObject;
     private List<GameObject> menus;
 
     private void Awake() {
@@ -18,7 +19,8 @@ public class MenuManager : MonoBehaviour {
             DontDestroyOnLoad(gameObject);
             actions = new InputActions();
 
-            menus = new List<GameObject> { pauseMenu };
+            menus = new List<GameObject> { pauseMenuObject };
+            pauseMenu = pauseMenuObject.GetComponent<PauseMenu>();
         }
         else
         {
@@ -91,7 +93,7 @@ public class MenuManager : MonoBehaviour {
 
         while (true)
         {
-            if (pauseMenu.activeSelf == false)
+            if (pauseMenuObject.activeSelf == false)
             {
                 float deltaTime = Time.time - previousTime;
                 GameDataManager.Instance.AddPlaytime(deltaTime);
@@ -106,13 +108,18 @@ public class MenuManager : MonoBehaviour {
     private void ActivateMenuControls()
     {
         actions.Menu.Enable();
-        actions.Menu.Pause.performed += context => ToggleMenu(pauseMenu);
+        actions.Menu.Pause.performed += context => ToggleMenu(pauseMenuObject);
     }
 
     public void DeactivateMenuControls()
     {
         if (actions == null) return;
-        actions.Menu.Pause.performed -= context => ToggleMenu(pauseMenu);
+        actions.Menu.Pause.performed -= context => ToggleMenu(pauseMenuObject);
         actions.Menu.Disable();
+    }
+
+    public void SaveZone(bool b)
+    {
+        pauseMenu.CanSave(b);
     }
 }

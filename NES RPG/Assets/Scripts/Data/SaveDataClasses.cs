@@ -6,22 +6,19 @@ using UnityEngine;
 public class PlayerData
 {
     public Stats stats = new(30,4,20,10,20,10,5);
-    public int lives;
-    public int level;
-    public int xp;
-    public int score;
+    public int level = 1;
+    public int swordLevel = 1;
+    public int xp = 0;
     
 }
 [System.Serializable]
 public class StatData
 {
-    public float playtime;
-    public int deaths;
-    public int kills;
-    public int damageDealt;
-    public int damageTaken;
-    public int livesLost;
-    public int scoreCollected;
+    public float playtime = 0;
+    public int kills = 0;
+    public int damageDealt = 0;
+    public int damageTaken = 0;
+    public int stuns = 0;
 }
 [System.Serializable]
 public class WorldData

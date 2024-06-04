@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,5 +26,18 @@ public class PauseMenu : MonoBehaviour {
 
     public void Quit() {
         GameDataManager.Instance.QuitGame();
+    }
+
+    public void CanSave(bool b) {
+        saveButton.interactable = b;
+
+        if (b)
+        {
+            saveButton.GetComponentInChildren<TextMeshProUGUI>().text = "Save";
+        }
+        else
+        {
+            saveButton.GetComponentInChildren<TextMeshProUGUI>().text = "Can't Save Here";
+        }
     }
 }

@@ -11,6 +11,12 @@ public class EnemyCombat : CharacterCombat {
         characterName = this.enemyData.enemyName;
     }
 
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        GameDataManager.Instance.AddDamageDealt(damage);
+    }
+
     public (string, CharacterCombat) DecideAction(PlayerCombat target)
     {
         return (enemyData.DecideAction(target), target);
@@ -21,7 +27,10 @@ public class EnemyCombat : CharacterCombat {
         if (enemyData is MidBoss)
         {
             GameDataManager.Instance.AddDefeatedBosses();
+            PlayerMovement.Instance.GetComponent<PlayerCombat>().UpgradeSword();
         }
+
+        GameDataManager.Instance.AddKills();
 
         Destroy(gameObject);
     }

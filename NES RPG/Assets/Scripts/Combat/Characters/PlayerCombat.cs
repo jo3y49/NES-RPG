@@ -8,6 +8,12 @@ public class PlayerCombat : CharacterCombat {
         base.Start();
     }
 
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        GameDataManager.Instance.AddDamageTaken(damage);
+    }
+
     public void XPGain(int xp)
     {
         GameDataManager.Instance.AddXP(xp);
@@ -15,19 +21,32 @@ public class PlayerCombat : CharacterCombat {
         if (GameDataManager.Instance.GetXP() >= GameDataManager.Instance.GetLevel() * 15)
         {
             LevelUp();
+            XPGain(0);
         }
     }
 
     private void LevelUp()
     {
         GameDataManager.Instance.AddLevel();
-        baseStats.AddAttack(2);
-        baseStats.AddMagic(2);
+
+        baseStats.AddMaxHealth(5);
         baseStats.AddMaxMana(1);
         baseStats.AddDefense(2);
         baseStats.AddSpeed(1);
-        baseStats.AddMaxHealth(5);
         stats = baseStats;
+
+        GameDataManager.Instance.SetStats(stats);
+    }
+
+    public void UpgradeSword()
+    {
+        if (GameDataManager.Instance.GetSwordLevel() > 3) return;
+
+        GameDataManager.Instance.AddSwordLevel();
+
+        baseStats.AddAttack(5);
+        stats = baseStats;
+
         GameDataManager.Instance.SetStats(stats);
     }
 }
