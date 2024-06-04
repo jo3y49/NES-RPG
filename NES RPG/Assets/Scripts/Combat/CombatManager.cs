@@ -17,6 +17,7 @@ public class CombatManager : MonoBehaviour {
     private bool menuCommandGiven = false;
     public int turnCount = 0;
     public bool endUserTurn = true;
+    public int xpGained = 0;
 
     public float placeholderAnimationWaitTime = 1f;
 
@@ -58,6 +59,7 @@ public class CombatManager : MonoBehaviour {
         if (player.stats.GetHealth() > 0)
         {
             MenuManager.Instance.EndCombat();
+            player.XPGain(xpGained);
             gameObject.SetActive(false);
         }
     }
@@ -150,6 +152,7 @@ public class CombatManager : MonoBehaviour {
                 else
                 {
                     enemies.Remove((EnemyCombat)character);
+                    xpGained += ((EnemyCombat)character).enemyData.experience;
                 }
             }
         }
@@ -172,6 +175,7 @@ public class CombatManager : MonoBehaviour {
         characterOrder = new();
         fight = true;
         turnCount = 0;
+        xpGained = 0;
     }
 
     private void SortCharactersIntoQueue(GameObject playerObject, List<GameObject> enemyObjects)

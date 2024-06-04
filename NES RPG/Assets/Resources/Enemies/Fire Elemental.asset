@@ -22,3 +22,4 @@ MonoBehaviour:
     Resistance: 20
     Speed: 3
   element: 1
+  experience: 5

@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb2562170ed87d64c84034ef3d10c240, type: 3}
-  m_Name: Tank
+  m_Script: {fileID: 11500000, guid: 1432dd47be3a3d04991bf9bf010ded14, type: 3}
+  m_Name: Standard
   m_EditorClassIdentifier: 
-  enemyName: Tank
+  enemyName: Standard
   stats:
-    Health: 40
+    Health: 25
     Mana: 0
     Attack: 15
-    Defense: 15
+    Defense: 10
     Magic: 0
-    Resistance: 10
-    Speed: 2
+    Resistance: 15
+    Speed: 4
   element: 0
   experience: 5

@@ -15,6 +15,7 @@ public static class CharacterActionList
 
     public static ActionResult BaseAttack(CharacterCombat user, CharacterCombat target)
     {
+        // add slight randomness to the damage calculation
         int damage = user.stats.GetAttack() - target.stats.GetDefense();
         bool isHit = Random.Range(0, 100) < 90;
         return CreateActionResult(user, target, isHit ? ResultType.Damage : ResultType.Miss, damage, 10, "attacks");
@@ -56,6 +57,7 @@ public static class CharacterActionList
         int stunChance,
         string baseMessage)
     {
+        damage += Random.Range((int)(damage*.9), (int)(damage*1.1));
         bool stun = resultType == ResultType.Damage && Random.Range(0, 100) < stunChance;
         string message = stun 
             ? $"{user.characterName} stuns {target.characterName}!"
@@ -76,6 +78,7 @@ public static class CharacterActionList
         int damage,
         ElementType element)
     {
+        damage = Random.Range((int)(damage*.9), (int)(damage*1.1));
         ResultType resultType = isHit ? ResultType.ElementAttack : ResultType.Miss;
         bool stun = false;
         string message;

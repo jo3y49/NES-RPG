@@ -66,6 +66,7 @@ public class DebugBattleManager : MonoBehaviour {
             HostileWorldManager.Instance.hostile = false;
             PlayerMovement.Instance.ToggleActive(false);
             MenuManager.Instance.DeactivateMenuControls();
+            PlayerMovement.Instance.GetComponent<PlayerCombat>().EndBattle();
         }
     }
 
