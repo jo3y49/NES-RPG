@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Final Boss
   stats:
-    Health: 50
+    Health: 80
     Mana: 0
-    Attack: 15
-    Defense: 15
-    Magic: 15
-    Resistance: 15
-    Speed: 4
+    Attack: 25
+    Defense: 25
+    Magic: 25
+    Resistance: 25
+    Speed: 5
   element: 0
   experience: 30
