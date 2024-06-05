@@ -14,6 +14,8 @@ public class PauseMenu : MonoBehaviour {
     }
 
     private void OnEnable() {
+        if (GameDataManager.Instance == null) return;
+        
         level.text = "Level: " + GameDataManager.Instance.GetLevel();
         playtime.text = "Playtime: " + Utility.FormatTimeToString(GameDataManager.Instance.GetPlaytime());
     }

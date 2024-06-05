@@ -40,7 +40,7 @@ public class CombatManager : MonoBehaviour {
         SortCharactersIntoQueue(playerObject, enemyObjects);
 
         combatMenuManager.Initialize(player, enemies);
-        playerCombatMenu.Initialize(player, enemies, this, combatMenuManager);
+        playerCombatMenu.Initialize(player, enemies[0], this, combatMenuManager);
 
         StartCoroutine(CombatLoop());
     }
