@@ -20,6 +20,7 @@ public class CombatManager : MonoBehaviour {
     public int xpGained = 0;
 
     public float placeholderAnimationWaitTime = 1f;
+    public float dialogueWaitTime = 1f;
 
     private void Awake()
     {
@@ -58,8 +59,19 @@ public class CombatManager : MonoBehaviour {
 
         if (player.stats.GetHealth() > 0)
         {
-            MenuManager.Instance.EndCombat();
+            int currentLevel = GameDataManager.Instance.GetLevel();
             player.XPGain(xpGained);
+            combatMenuManager.ActiveText("You gained " + xpGained + " xp");
+            yield return new WaitForSeconds(dialogueWaitTime);
+            if (currentLevel < GameDataManager.Instance.GetLevel())
+            {
+                combatMenuManager.ActiveText("Level up!");
+
+                yield return new WaitForSeconds(dialogueWaitTime);
+            }
+
+            MenuManager.Instance.EndCombat();
+            
             gameObject.SetActive(false);
         }
     }

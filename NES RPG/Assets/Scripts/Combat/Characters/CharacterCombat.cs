@@ -63,6 +63,8 @@ public class CharacterCombat : MonoBehaviour {
 
     public virtual void EndBattle()
     {
-        stats = baseStats;
+        stats.ResetHealth();
+        stats.ResetMana();
+        affectedElement = ElementType.None;
     }
 }

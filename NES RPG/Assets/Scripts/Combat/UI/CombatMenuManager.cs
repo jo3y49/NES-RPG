@@ -43,9 +43,10 @@ public class CombatMenuManager : MonoBehaviour {
             string healthString = $"{player.Key.characterName}: {player.Value.GetHealth()}";
             string manaString = $"{player.Value.GetMana()} spells remaining";
             string elementString = $"Active element: {player.Key.affectedElement}";
+            string levelString = $"Level: {GameDataManager.Instance.GetLevel()}";
             string stunString = player.Key.stunned ? "Stunned" : "";
 
-            text.text = $"{healthString}\n{manaString}\n{elementString}\n{stunString}";
+            text.text = $"{healthString}\n{levelString}\n{manaString}\n{elementString}\n{stunString}";
             characterInfoList.Add(player.Key, text);
         }
 
@@ -75,9 +76,10 @@ public class CombatMenuManager : MonoBehaviour {
                 string healthString = $"{player.Key.characterName}: {player.Value.GetHealth()}";
                 string manaString = $"{player.Value.GetMana()} spells remaining";
                 string elementString = $"Active element: {player.Key.affectedElement}";
-                string stunString = player.Key.stunned ? "Stunned" : "";    
+                string levelString = $"Level: {GameDataManager.Instance.GetLevel()}";
+                string stunString = player.Key.stunned ? "Stunned" : "";
 
-                text.text = $"{healthString}\n{manaString}\n{elementString}\n{stunString}";
+                text.text = $"{healthString}\n{levelString}\n{manaString}\n{elementString}\n{stunString}";
             }
         }
 

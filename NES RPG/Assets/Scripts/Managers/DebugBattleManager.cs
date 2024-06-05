@@ -40,13 +40,12 @@ public class DebugBattleManager : MonoBehaviour {
         mainText.text = "Select who you want to fight";
 
         HostileWorldManager.Instance.ToggleHostility(false);
-
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
 
     private void SelectEnemy(EnemyData enemyData)
     {
+        HostileWorldManager.Instance.player.GetComponent<PlayerCombat>().EndBattle();
         HostileWorldManager.Instance.StartCombat(enemyData);
         gameObject.SetActive(false);
         
@@ -66,8 +65,14 @@ public class DebugBattleManager : MonoBehaviour {
             HostileWorldManager.Instance.ToggleHostility(false);
             PlayerMovement.Instance.ToggleActive(false);
             MenuManager.Instance.DeactivateMenuControls();
-            PlayerMovement.Instance.GetComponent<PlayerCombat>().EndBattle();
+        } else if (scene.name == "Title")
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
+    }
+
+    private void OnEnable() {
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDestroy() {

@@ -8,10 +8,7 @@ public abstract class PlayerMovement : MonoBehaviour {
     protected Rigidbody2D rb;
     protected InputActions actions;
     protected Vector2 moveInput;
-
     public float moveSpeed = 5;
-    public float sprintMultiplier = 1.5f;
-    protected bool isSprinting = false;
 
     public DirectionEnum.Direction direction = DirectionEnum.Direction.Right;
     
@@ -35,16 +32,12 @@ public abstract class PlayerMovement : MonoBehaviour {
 
         actions.Player.Move.performed += MoveCharacter;
         actions.Player.Move.canceled += context => StopCharacter();
-        actions.Player.Sprint.performed += context => Sprint(true);
-        actions.Player.Sprint.canceled += context => Sprint(false);
     }
 
     protected virtual void OnDisable() {
         if (actions == null) return;
         actions.Player.Move.performed -= MoveCharacter;
         actions.Player.Move.canceled -= context => StopCharacter();
-        actions.Player.Sprint.performed += context => Sprint(true);
-        actions.Player.Sprint.canceled += context => Sprint(false);
 
         StopCharacter();
 
@@ -62,13 +55,8 @@ public abstract class PlayerMovement : MonoBehaviour {
 
     protected virtual void StopCharacter()
     {   
-        isSprinting = false;
+        
         moveInput = Vector2.zero;
-    }
-
-    protected virtual void Sprint(bool b)
-    {
-        isSprinting = b;
     }
 
     protected virtual void FixedUpdate() {
@@ -77,7 +65,7 @@ public abstract class PlayerMovement : MonoBehaviour {
 
     protected virtual void Movement()
     {
-        float speedToUse = isSprinting ? moveSpeed * sprintMultiplier : moveSpeed;
+        float speedToUse = moveSpeed;
 
         rb.velocity = moveInput * speedToUse;
     }

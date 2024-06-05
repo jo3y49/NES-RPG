@@ -29,9 +29,10 @@ public class PlayerCombat : CharacterCombat {
     {
         GameDataManager.Instance.AddLevel();
 
-        baseStats.AddMaxHealth(5);
+        baseStats.AddMaxHealth(2);
         baseStats.AddMaxMana(1);
-        baseStats.AddDefense(2);
+        baseStats.AddDefense(1);
+        baseStats.AddResistance(1);
         baseStats.AddSpeed(1);
         stats = baseStats;
 
@@ -45,6 +46,7 @@ public class PlayerCombat : CharacterCombat {
         GameDataManager.Instance.AddSwordLevel();
 
         baseStats.AddAttack(5);
+        baseStats.AddMagic(2);
         stats = baseStats;
 
         GameDataManager.Instance.SetStats(stats);

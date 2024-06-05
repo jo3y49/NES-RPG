@@ -5,11 +5,17 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour {
     public Button resumeButton, saveButton, quitButton;
+    public TextMeshProUGUI level, playtime;
 
     private void Awake() {
         resumeButton.onClick.AddListener(Resume);
         saveButton.onClick.AddListener(Save);
         quitButton.onClick.AddListener(Quit);
+    }
+
+    private void OnEnable() {
+        level.text = "Level: " + GameDataManager.Instance.GetLevel();
+        playtime.text = "Playtime: " + Utility.FormatTimeToString(GameDataManager.Instance.GetPlaytime());
     }
 
     public void Resume() {

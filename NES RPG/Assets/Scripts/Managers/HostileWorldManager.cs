@@ -10,8 +10,10 @@ public class HostileWorldManager : WorldManager {
     public GameObject enemyPrefab;
     public List<GameObject> activeEnemies = new();
     public float combatCheckInterval = .5f;
+    public float enemyGracePeriod = 3f;
     public bool hostile = true;
     private Coroutine combatCheck;
+    private Coroutine gracePeriod;
 
     protected override void Awake()
     {
@@ -32,6 +34,11 @@ public class HostileWorldManager : WorldManager {
 
         actions.Player.Move.performed += context => CheckForEnemies();
         actions.Player.Move.canceled += context => StopCheck();
+
+        if (hostile)
+        {
+            gracePeriod = StartCoroutine(GracePeriod());
+        }
     }
 
     private void OnDisable() {
@@ -41,6 +48,12 @@ public class HostileWorldManager : WorldManager {
         actions.Player.Move.canceled -= context => StopCheck();
 
         actions.Player.Disable();
+
+        if (gracePeriod != null)
+        {
+            StopCoroutine(gracePeriod);
+            gracePeriod = null;
+        }
     }
 
     private void CheckForEnemies()
@@ -67,11 +80,19 @@ public class HostileWorldManager : WorldManager {
         while (true)
         {
             yield return new WaitForSeconds(combatCheckInterval);
-            if (Random.Range(0, 100) < 10)
+            if (Random.Range(0, 100) < 20)
             {
                 StartCombat();
             }
         }
+    }
+
+    private IEnumerator GracePeriod()
+    {
+        yield return new WaitForSeconds(enemyGracePeriod);
+        
+        ToggleHostility(true);
+        gracePeriod = null;
     }
 
     public virtual void StartCombat()

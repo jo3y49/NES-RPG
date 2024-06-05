@@ -5,7 +5,7 @@ public class OverWorldManager : MonoBehaviour {
     public List<GameObject> barriers = new();
     private void Start() {
         HostileWorldManager.Instance.ToggleHostility(false);
-        PlayerMovement.Instance.GetComponent<PlayerCombat>().EndBattle();
+        HostileWorldManager.Instance.player.GetComponent<PlayerCombat>().EndBattle();
         MenuManager.Instance.SaveZone(true);
 
         for (int i = 0; i < GameDataManager.Instance.GetDefeatedBosses(); i++) {

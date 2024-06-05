@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e6c642477d0334082507c442c239ee, type: 3}
   m_Name: Water Elemental
   m_EditorClassIdentifier: 
-  enemyName: Elemental 1
+  enemyName: Water Elemental
   stats:
     Health: 25
     Mana: 0
     Attack: 0
-    Defense: 10
-    Magic: 12
+    Defense: 12
+    Magic: 14
     Resistance: 20
     Speed: 3
   element: 2
