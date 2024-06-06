@@ -15,36 +15,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Click",
+                    "name": "Interact",
                     "type": "Button",
-                    "id": "d9e347c7-6a0f-4435-98b6-4c4365b731c6",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RightClick",
-                    "type": "Button",
-                    "id": "d316ea82-f747-40f9-9ae5-c56ff02466b3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "f9b2f2bc-61bb-44bb-9079-67443041a8b2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Sprint",
-                    "type": "Button",
-                    "id": "4e25184b-c229-4de8-adde-e24bd06b7cdf",
+                    "id": "c0d2f52e-1cba-4e06-b188-d4f426776756",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -52,28 +25,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "f8776c7a-063a-47b9-92e9-327d5d87e256",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "dfc1a84b-4749-48f8-9e08-9e7d11121d3c",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Click",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "WASD",
                     "id": "cf6a3171-c99a-4ace-8de6-cc55825e2df1",
@@ -197,67 +148,12 @@
                 },
                 {
                     "name": "",
-                    "id": "6df5b91c-bbb2-46bc-8f87-c87174faa463",
-                    "path": "<Keyboard>/space",
+                    "id": "97217af7-c2ac-4039-b9b1-31dc315177b7",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a5a82f73-8305-4b65-b28b-e40f312b675d",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "291d4193-f7b9-4f9f-a587-78c6c6944ff0",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Sprint",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "aee60688-9f3b-44bb-8b71-b7ee72077d97",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Sprint",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "bc8fd19b-2461-4758-ae85-9224d115e997",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RightClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ca9b6dfd-310c-4d24-a762-c7bb2ba641fd",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RightClick",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -293,22 +189,13 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Inventory",
-                    "type": "Button",
-                    "id": "4c5bf9f5-4b15-44c2-8ad3-91cf900b268c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "c19a7616-2061-4702-bda0-bf8fcd92d449",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -451,7 +338,7 @@
                 {
                     "name": "",
                     "id": "1e3246a4-b8b6-4572-a84f-0830842739dc",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Keyboard>/l",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -467,17 +354,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Select",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "072d0b87-343c-4746-8f47-9db2e911382d",
-                    "path": "<Keyboard>/i",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

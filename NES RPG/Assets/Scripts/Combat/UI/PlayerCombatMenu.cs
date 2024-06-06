@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PlayerCombatMenu : MonoBehaviour {
@@ -45,7 +44,14 @@ public class PlayerCombatMenu : MonoBehaviour {
 
     private void PickExplanation()
     {
+        initialButtonContainer.SetActive(false);
         combatExplanationContainer.SetActive(true);
+    }
+
+    public void BackFromExplanation()
+    {
+        initialButtonContainer.SetActive(true);
+        combatExplanationContainer.SetActive(false);
     }
 
     private void SelectAttack()
@@ -83,6 +89,9 @@ public class PlayerCombatMenu : MonoBehaviour {
         spellButton.onClick.AddListener(PickSpell);
         explanationButton.onClick.AddListener(PickExplanation);
 
+        ButtonManager buttonManager = spellButtonContainer.GetComponent<ButtonManager>();
+        buttonManager.ClearButtons();
+
         for (int i = 0; i < spellButtonContainer.transform.childCount; i++)
         {
             Destroy(spellButtonContainer.transform.GetChild(i).gameObject);
@@ -96,11 +105,13 @@ public class PlayerCombatMenu : MonoBehaviour {
             // spell.Value.OnPointerEnter((eventData) => HoverAction(spell.Key, eventData));
 
             spell.Value.transform.SetParent(spellButtonContainer.transform);
+            buttonManager.AddButton(spell.Value);
         }
 
         Button back = Instantiate(buttonPrefab, spellButtonContainer.transform);
         back.GetComponentInChildren<TextMeshProUGUI>().text = "Back";
         back.onClick.AddListener(BackFromSpell);
+        buttonManager.AddButton(back);
 
         playerOptions.Add(player, options);
     }

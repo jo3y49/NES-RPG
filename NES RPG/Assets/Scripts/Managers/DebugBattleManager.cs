@@ -15,6 +15,8 @@ public class DebugBattleManager : MonoBehaviour {
     private void Start() {
         enemyDatas = Resources.LoadAll<EnemyData>("");
 
+        ButtonManager buttonManager = enemyButtonContainer.GetComponent<ButtonManager>();
+
         for(int i = 0; i < enemyDatas.Length; i++) {
             EnemyData enemyData = enemyDatas[i];
             Button enemyButton = Instantiate(buttonPrefab, enemyButtonContainer.transform).GetComponent<Button>();
@@ -22,16 +24,19 @@ public class DebugBattleManager : MonoBehaviour {
             enemyButton.GetComponentInChildren<TextMeshProUGUI>().text = enemyData.name;
             enemyButton.onClick.AddListener(() => SelectEnemy(enemyData));
             enemyButtons.Add(enemyButton);
+            buttonManager.AddButton(enemyButton);
         }
 
         Button randomButton = Instantiate(buttonPrefab, enemyButtonContainer.transform).GetComponent<Button>();
         randomButton.GetComponentInChildren<TextMeshProUGUI>().text = "Random Enemy";
         randomButton.onClick.AddListener(RandomEnemy);
         enemyButtons.Add(randomButton);
+        buttonManager.AddButton(randomButton);
 
         Button backButton = Instantiate(buttonPrefab, enemyButtonContainer.transform).GetComponent<Button>();
         backButton.GetComponentInChildren<TextMeshProUGUI>().text = "Back";
         backButton.onClick.AddListener(() => GameDataManager.Instance.QuitGame());
+        enemyButtons.Add(backButton);
 
         enemyButtonContainer.SetActive(true);
 

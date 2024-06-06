@@ -84,6 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4478923529393513437}
+  - component: {fileID: 2538303721558677842}
   m_Layer: 0
   m_Name: Buttons
   m_TagString: Untagged
@@ -109,6 +110,22 @@ Transform:
   - {fileID: 3018611544660021160}
   m_Father: {fileID: 6283213616052813863}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2538303721558677842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2361001230943674233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e11e3eeeef267242b71a2bf0d1a5bbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 3087407724335489556}
+  - {fileID: 6121561262713641492}
+  - {fileID: 7498553119887352963}
 --- !u!1 &2643511133130713765
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,14 +219,14 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &3108581207708385475
 MonoBehaviour:
