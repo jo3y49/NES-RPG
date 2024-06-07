@@ -37,6 +37,7 @@ public class DebugBattleManager : MonoBehaviour {
         backButton.GetComponentInChildren<TextMeshProUGUI>().text = "Back";
         backButton.onClick.AddListener(() => GameDataManager.Instance.QuitGame());
         enemyButtons.Add(backButton);
+        buttonManager.AddButton(backButton);
 
         enemyButtonContainer.SetActive(true);
 

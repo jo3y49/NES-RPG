@@ -40,13 +40,7 @@ public class CombatMenuManager : MonoBehaviour {
         foreach (KeyValuePair<PlayerCombat, Stats> player in playerStats) {
             GameObject characterInfo = Instantiate(characterInfoPrefab, playerNameContainer.transform);
             TextMeshProUGUI text = characterInfo.GetComponentInChildren<TextMeshProUGUI>();
-            string healthString = $"{player.Key.characterName}: {player.Value.GetHealth()}";
-            string manaString = $"{player.Value.GetMana()} spells remaining";
-            string elementString = $"Active element: {player.Key.affectedElement}";
-            string levelString = $"Level: {GameDataManager.Instance.GetLevel()}";
-            string stunString = player.Key.stunned ? "Stunned" : "";
-
-            text.text = $"{healthString}\n{levelString}\n{manaString}\n{elementString}\n{stunString}";
+            text.text = PlayerString(player.Key);
             characterInfoList.Add(player.Key, text);
         }
 
@@ -54,11 +48,8 @@ public class CombatMenuManager : MonoBehaviour {
             KeyValuePair<EnemyCombat, Stats> enemy = enemyPair;
             GameObject characterInfo = Instantiate(characterInfoPrefab, enemyNameContainer.transform);
             TextMeshProUGUI text = characterInfo.GetComponentInChildren<TextMeshProUGUI>();
-            string healthString = $"{enemy.Key.enemyData.enemyName}: {enemy.Value.GetHealth()}";
-            string elementString = $"Active element: {enemy.Key.affectedElement}";
-            string stunString = enemy.Key.stunned ? "Stunned" : "";
-
-            text.text = $"{healthString}\n{elementString}\n{stunString}";
+            text.text = EnemyString(enemy.Key);
+            text.alignment = TextAlignmentOptions.TopRight;
             characterInfoList.Add(enemy.Key, text);
         }
     }
@@ -73,13 +64,7 @@ public class CombatMenuManager : MonoBehaviour {
             if (player.Value.GetHealth() <= 0) {
                 text.text = $"{player.Key.characterName}: is Defeated";
             } else {
-                string healthString = $"{player.Key.characterName}: {player.Value.GetHealth()}";
-                string manaString = $"{player.Value.GetMana()} spells remaining";
-                string elementString = $"Active element: {player.Key.affectedElement}";
-                string levelString = $"Level: {GameDataManager.Instance.GetLevel()}";
-                string stunString = player.Key.stunned ? "Stunned" : "";
-
-                text.text = $"{healthString}\n{levelString}\n{manaString}\n{elementString}\n{stunString}";
+                text.text = PlayerString(player.Key);
             }
         }
 
@@ -88,11 +73,7 @@ public class CombatMenuManager : MonoBehaviour {
             if (enemy.Value.GetHealth() <= 0) {
                 text.text = $"{enemy.Key.enemyData.enemyName}: is Defeated";
             } else {
-                string healthString = $"{enemy.Key.enemyData.enemyName}: {enemy.Value.GetHealth()}";
-                string elementString = $"Active element: {enemy.Key.affectedElement}";
-                string stunString = enemy.Key.stunned ? "Stunned" : "";
-
-                text.text = $"{healthString}\n{elementString}\n{stunString}";
+                text.text = EnemyString(enemy.Key);
             }
         }
     }
@@ -104,5 +85,37 @@ public class CombatMenuManager : MonoBehaviour {
 
     private void AddToBattleLog(string text) {
         battleLog.Add(text);
+    }
+
+    private string PlayerString(PlayerCombat player) {
+        return NameString(player) + "\n" + HealthString(player) + "\n" + ManaString(player) + "\n" + ElementString(player) + "\n" + LevelString() + "\n" + StunString(player);
+    }
+
+    private string EnemyString(EnemyCombat enemy) {
+        return NameString(enemy) + "\n" + HealthString(enemy) + "\n" + ElementString(enemy) + "\n" + StunString(enemy);
+    }
+
+    private string NameString(CharacterCombat character) {
+        return $"{character.characterName}";
+    }
+
+    private string HealthString(CharacterCombat character) {
+        return $"{character.stats.GetHealth()} HP";
+    }
+
+    private string ManaString(CharacterCombat character) {
+        return $"{character.stats.GetMana()} spells";
+    }
+
+    private string ElementString(CharacterCombat character) {
+        return $"Element: {character.affectedElement}";
+    }
+
+    private string LevelString() {
+        return $"Level: {GameDataManager.Instance.GetLevel()}";
+    }
+
+    private string StunString(CharacterCombat character) {
+        return character.stunned ? "Stunned" : "";
     }
 }

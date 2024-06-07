@@ -4,12 +4,14 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour {
-    public Button resumeButton, saveButton, quitButton;
+    public Button resumeButton, saveButton, controlsButton, quitButton;
+    public GameObject controlsMenu, buttonContainer;
     public TextMeshProUGUI level, playtime;
 
     private void Awake() {
         resumeButton.onClick.AddListener(Resume);
         saveButton.onClick.AddListener(Save);
+        controlsButton.onClick.AddListener(() => Controls(true));
         quitButton.onClick.AddListener(Quit);
     }
 
@@ -18,6 +20,8 @@ public class PauseMenu : MonoBehaviour {
         
         level.text = "Level: " + GameDataManager.Instance.GetLevel();
         playtime.text = "Playtime: " + Utility.FormatTimeToString(GameDataManager.Instance.GetPlaytime());
+
+        controlsMenu.SetActive(false);
     }
 
     public void Resume() {
@@ -31,6 +35,11 @@ public class PauseMenu : MonoBehaviour {
         PlayerMovement.Instance.GetComponent<PlayerCombat>().EndBattle();
 
         gd.SaveGameData();
+    }
+
+    public void Controls(bool b) {
+        controlsMenu.SetActive(b);
+        buttonContainer.SetActive(!b);
     }
 
     public void Quit() {

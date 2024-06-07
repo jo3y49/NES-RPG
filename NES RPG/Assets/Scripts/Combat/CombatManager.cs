@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour {
@@ -78,7 +77,7 @@ public class CombatManager : MonoBehaviour {
 
     private IEnumerator PlayerTurn(PlayerCombat player)
     {
-        combatMenuManager.ActiveText("Player turn");
+        combatMenuManager.ActiveText(player.characterName + "'s turn");
         menuCommandGiven = false;
 
         player.StartTurn();
@@ -92,7 +91,7 @@ public class CombatManager : MonoBehaviour {
 
     private IEnumerator EnemyTurn(EnemyCombat enemy)
     {
-        combatMenuManager.ActiveText("Enemy turn" + enemy.enemyData.enemyName);
+        combatMenuManager.ActiveText(enemy.characterName + "'s turn");
 
         enemy.StartTurn();
         EnemyAiAction(enemy);

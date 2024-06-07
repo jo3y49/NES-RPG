@@ -113,4 +113,15 @@ public class ButtonManager : MonoBehaviour {
         buttonHandlers.Clear();
         highlightedButton = null;
     }
+
+    public void SetHighlightedButton(Button button) {
+        if (!buttons.Contains(button)) return;
+        
+        if (highlightedButton != null) {
+            buttonHandlers[highlightedButton].UnHighlight();
+        }
+
+        highlightedButton = button;
+        buttonHandlers[highlightedButton].Highlight();
+    }
 }

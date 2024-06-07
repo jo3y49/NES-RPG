@@ -36,7 +36,7 @@ public class PlayerCombatMenu : MonoBehaviour {
 
     private void BackFromSpell()
     {
-        combatMenuManager.ActiveText("");
+        combatMenuManager.ActiveText(activePlayer.characterName + "'s turn");
         initialButtonContainer.SetActive(true);
         spellButtonContainer.SetActive(false);
     }
