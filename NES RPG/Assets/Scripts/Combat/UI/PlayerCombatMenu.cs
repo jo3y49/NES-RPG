@@ -9,7 +9,6 @@ public class PlayerCombatMenu : MonoBehaviour {
     public Button attackButton, spellButton, explanationButton;
     private CombatManager combatManager;
     private CombatMenuManager combatMenuManager;
-    private Dictionary<PlayerCombat, PlayerCombatOptions> playerOptions = new();
     private string selectedAction;
     private PlayerCombat activePlayer;
     private EnemyCombat target;
@@ -84,7 +83,6 @@ public class PlayerCombatMenu : MonoBehaviour {
 
     private void SetPlayerButtons(PlayerCombat player)
     {
-        playerOptions.Clear();
         attackButton.onClick.AddListener(SelectAttack);
         spellButton.onClick.AddListener(PickSpell);
         explanationButton.onClick.AddListener(PickExplanation);
@@ -97,22 +95,19 @@ public class PlayerCombatMenu : MonoBehaviour {
             Destroy(spellButtonContainer.transform.GetChild(i).gameObject);
         }
 
-        PlayerCombatOptions options = new(buttonPrefab);
+        PlayerCombatOptions options = new();
 
-        foreach (KeyValuePair<string, Button> spell in options.spells)
+        foreach (string spell in options.spells)
         {
-            spell.Value.onClick.AddListener(() => SelectSpell(spell.Key));
-            // spell.Value.OnPointerEnter((eventData) => HoverAction(spell.Key, eventData));
-
-            spell.Value.transform.SetParent(spellButtonContainer.transform);
-            buttonManager.AddButton(spell.Value);
+            Button spellButton = Instantiate(buttonPrefab, spellButtonContainer.transform);
+            spellButton.GetComponentInChildren<TextMeshProUGUI>().text = spell;
+            spellButton.onClick.AddListener(() => SelectSpell(spell));
+            buttonManager.AddButton(spellButton);
         }
 
         Button back = Instantiate(buttonPrefab, spellButtonContainer.transform);
         back.GetComponentInChildren<TextMeshProUGUI>().text = "Back";
         back.onClick.AddListener(BackFromSpell);
         buttonManager.AddButton(back);
-
-        playerOptions.Add(player, options);
     }
 }

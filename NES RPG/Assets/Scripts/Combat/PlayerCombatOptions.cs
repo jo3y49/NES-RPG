@@ -5,20 +5,13 @@ using UnityEngine.UI;
 
 public class PlayerCombatOptions
 {
-    public Dictionary<string, Button> spells = new();
+    public List<string> spells = new();
 
-    public PlayerCombatOptions(Button buttonPrefab)
+    public PlayerCombatOptions()
     {
-        spells.Add("Fire", GenerateButton(buttonPrefab, "Fire"));
-        spells.Add("Ice", GenerateButton(buttonPrefab, "Ice"));
-        spells.Add("Lightning", GenerateButton(buttonPrefab, "Lightning"));
-        spells.Add("Water", GenerateButton(buttonPrefab, "Water"));
-    }
-
-    public Button GenerateButton(Button buttonPrefab, string text)
-    {
-        Button button = Object.Instantiate(buttonPrefab);
-        button.GetComponentInChildren<TextMeshProUGUI>().text = text;
-        return button;
+        spells.Add("Fire");
+        spells.Add("Ice");
+        spells.Add("Lightning");
+        spells.Add("Water");
     }
 }

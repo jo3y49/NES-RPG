@@ -350,6 +350,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 328861272687940821, guid: 412507b2736382a4cab09d1f73e1b0ea, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 968802673283921491, guid: 412507b2736382a4cab09d1f73e1b0ea, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -366,6 +370,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3587059243470506185, guid: 412507b2736382a4cab09d1f73e1b0ea, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3609308466714912349, guid: 412507b2736382a4cab09d1f73e1b0ea, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -380,6 +388,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3609308466714912349, guid: 412507b2736382a4cab09d1f73e1b0ea, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745545027648114943, guid: 412507b2736382a4cab09d1f73e1b0ea, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745545027648114943, guid: 412507b2736382a4cab09d1f73e1b0ea, type: 3}
+      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6667041548651818695, guid: 412507b2736382a4cab09d1f73e1b0ea, type: 3}
